@@ -1,0 +1,38 @@
+name: Copy RSV target-data
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 8 * * 1'
+
+
+jobs:
+    copy-files:
+        runs-on: ubuntu-latest
+        name: Copy Files
+
+        steps:      
+            
+        - name: Checkout Repository
+          uses: actions/checkout@v2
+          with:
+            fetch-depth: 1
+            path: ./rsv-forecast-hub
+
+        - name: Copy files
+          run: |
+            wget -O ./rsv-forecast-hub/target-data/rsvnet_hospitalization.csv https://raw.githubusercontent.com/midas-network/rsv-scenario-modeling-hub/main/target-data/rsvnet_hospitalization.csv
+
+        - name: Commit and push repository update
+          run: |
+            cd ./rsv-forecast-hub
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            if [ -n "$(git status --porcelain)" ]; then
+              git add .
+              git commit -m "Download truth data file from RSV repo"
+              git push
+              last_commit=$(git rev-parse HEAD)
+              echo "RSV-Net data updated";
+            else
+              echo "no updates";
+            fi
