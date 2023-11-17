@@ -13,13 +13,15 @@ jobs:
         steps:      
             
         - name: Checkout Repository
-          uses: actions/checkout@v2
+          uses: actions/checkout@v4
           with:
             fetch-depth: 1
             path: ./rsv-forecast-hub
 
         - name: Copy files
           run: |
+            mkdir -p ./rsv-forecast-hub/target-data/
+            chmod +w ./rsv-forecast-hub/target-data/
             wget -O ./rsv-forecast-hub/target-data/rsvnet_hospitalization.csv https://raw.githubusercontent.com/midas-network/rsv-scenario-modeling-hub/main/target-data/rsvnet_hospitalization.csv
 
         - name: Commit and push repository update
