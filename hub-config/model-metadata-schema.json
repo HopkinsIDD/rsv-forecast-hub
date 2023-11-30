@@ -78,7 +78,9 @@
                 "PPDL",
                 "ODC-by",
                 "ODbL",
-                "OGL-3.0"
+                "OGL-3.0",
+                "MIT",
+                "other"
             ]
         },
         "citation": {
