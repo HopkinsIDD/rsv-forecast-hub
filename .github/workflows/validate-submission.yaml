@@ -45,3 +45,37 @@ jobs:
           )
           hubValidations::check_for_errors(v)
         shell: Rscript {0}
+
+      - name: Checkout and push to another repository
+        if: success
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.actor }}/rsv-forecast-hub_data
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: ./
+
+      - name: Copy new files
+        run: |
+          FILES=$(git diff --name-only HEAD^ HEAD)
+          for FILE in $FILES
+          do
+            if [[ $FILE == model-output/* ]] || [[ $FILE == model-metadata/* ]]; then
+              cp $FILE ./$FILE
+            fi
+          done
+
+      - name: Commit and push new files
+        run: |
+          cd ./repo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Upload new files to RSV data repo"
+            git push
+            last_commit=$(git rev-parse HEAD)
+            echo "RSV data uploaded";
+          else
+            echo "no upload";
+          fi
+        shell: bash
