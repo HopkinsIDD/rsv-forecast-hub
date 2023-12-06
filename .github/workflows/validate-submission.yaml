@@ -30,7 +30,7 @@ jobs:
       - name: Install HubValidations
         run: |
           install.packages("remotes")
-          remotes::install_github("Infectious-Disease-Modeling-Hubs/hubValidations", ref="mod-delete-alert")
+          remotes::install_github("Infectious-Disease-Modeling-Hubs/hubValidations")
         shell: Rscript {0}
 
       - name: Run validations
