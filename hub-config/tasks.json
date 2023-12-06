@@ -20,7 +20,7 @@
                             ]
                     },
                     "target": {
-                        "required": ["wk inc rsv hosp"],
+                        "required": ["inc hosp"],
                         "optional": null
                     },
                     "horizon": {
@@ -130,11 +130,11 @@
                 },
                 "target_metadata": [
                     {
-                       "target_id": "wk inc rsv hosp",
+                       "target_id": "inc hosp",
                        "target_name": "Weekly incident RSV hospitalizations",
                        "target_units": "count",
                        "target_keys": {
-                           "target": ["wk inc rsv hosp"]
+                           "target": ["inc hosp"]
                        },
                        "target_type": "continuous",
                        "is_step_ahead": true,
@@ -145,9 +145,9 @@
 		    }
 		    ],
        	    "submissions_due": {
-                "relative_to": "reference_date",
+                "relative_to": "origin_date",
                 "start": -6,
-                "end": 2
+                "end": 6
             }
         }
     ]
