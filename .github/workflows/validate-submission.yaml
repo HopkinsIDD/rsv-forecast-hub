@@ -47,7 +47,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Checkout and push to another repository
-        if: success
+        if: success()
         uses: actions/checkout@v2
         with:
           repository: ${{ github.actor }}/rsv-forecast-hub_data
