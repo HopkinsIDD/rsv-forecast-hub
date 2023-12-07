@@ -147,7 +147,7 @@
        	    "submissions_due": {
                 "relative_to": "origin_date",
                 "start": -6,
-                "end": 2
+                "end": 100
             }
         }
     ]
