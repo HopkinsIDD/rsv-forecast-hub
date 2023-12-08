@@ -52,7 +52,7 @@ jobs:
         with:
           repository: ${{ github.actor }}/rsv-forecast-hub_data
           token: ${{ secrets.GITHUB_TOKEN }}
-          path: ./
+          path: ./rsv-forecast-hub_data
 
       - name: Copy new files
         run: |
@@ -60,13 +60,13 @@ jobs:
           for FILE in $FILES
           do
             if [[ $FILE == model-output/* ]] || [[ $FILE == model-metadata/* ]]; then
-              cp $FILE ./$FILE
+              cp $FILE ./rsv-forecast-hub_data/$FILE
             fi
           done
 
       - name: Commit and push new files
         run: |
-          cd ./repo
+          cd ./rsv-forecast-hub_data
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if [ -n "$(git status --porcelain)" ]; then
