@@ -53,6 +53,7 @@ jobs:
           repository: kjsato/rsv-forecast-hub_data
           token: ${{ secrets.KJ3_PAT }}
           path: ./rsv-forecast-hub_data
+          fetch-depth: 2
 
       - name: Copy new files
         run: |
