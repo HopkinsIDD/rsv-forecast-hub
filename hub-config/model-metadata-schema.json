@@ -78,18 +78,33 @@
                 "PPDL",
                 "ODC-by",
                 "ODbL",
-                "OGL-3.0"
+                "OGL-3.0",
+                "MIT",
+                "other"
             ]
         },
         "citation": {
             "description": "One or more citations for this model",
             "type": "string",
-            "examples": "Gibson GC , Reich NG , Sheldon D. Real-time mechanistic bayesian forecasts of Covid-19 mortality. medRxiv. 2020. https://doi.org/10.1101/2020.12.22.20248736"
+            "examples": ["Gibson GC , Reich NG , Sheldon D. Real-time mechanistic bayesian forecasts of Covid-19 mortality. medRxiv. 2020. https://doi.org/10.1101/2020.12.22.20248736"]
         },
         "team_funding": {
             "description": "Any information about funding source for the team or members of the team.",
             "type": "string",
-            "examples": "National Institutes of General Medical Sciences (R01GM123456). The content is solely the responsibility of the authors and does not necessarily represent the official views of NIGMS."
+            "examples": ["National Institutes of General Medical Sciences (R01GM123456). The content is solely the responsibility of the authors and does not necessarily represent the official views of NIGMS."]
+        },
+        "data_inputs": {
+            "description": "List or description of data inputs used by the model",
+            "type": "string"
+        },
+        "methods": {
+            "description": "A brief (200 char.) description of the methods used by this model",
+            "type": "string",
+            "maxLength": 200
+        },
+        "methods_long": {
+            "description": "A full description of the methods used by this model.",
+            "type": "string"
         },
         "model_details": {
             "description": "Structured information about the model",
@@ -126,6 +141,9 @@
         "model_abbr",
         "model_contributors",
         "license",
-        "model_details"
+        "website_url",
+        "model_version",
+        "methods"
+        
     ]
 }
