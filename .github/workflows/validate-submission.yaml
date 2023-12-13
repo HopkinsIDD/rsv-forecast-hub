@@ -51,7 +51,7 @@ jobs:
         if: success()
         uses: actions/checkout@v2
         with:
-          repository: HpokinsIDD/rsv-forecast-hub_data
+          repository: HopkinsIDD/rsv-forecast-hub_data
           token: ${{ secrets.KJ3_PAT }}
           path: ./rsv-forecast-hub_data
           fetch-depth: 2
