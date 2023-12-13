@@ -1,0 +1,84 @@
+name: Hub Submission Validation (R)
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: main
+    paths:
+      - 'model-output/**'
+      - 'model-metadata/*'
+
+jobs:
+  validate-submission:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          install-r: false
+          use-public-rspm: true
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install libcurl4-openssl-dev libv8-dev
+
+      - name: Install HubValidations
+        run: |
+          install.packages("remotes")
+          remotes::install_github("Infectious-Disease-Modeling-Hubs/hubValidations")
+        shell: Rscript {0}
+
+      - name: Run validations
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+        run: |
+          library("hubValidations")
+          v <- hubValidations::validate_pr(
+              gh_repo = Sys.getenv("GITHUB_REPOSITORY"),
+              pr_number = Sys.getenv("PR_NUMBER"),
+              skip_submit_window_check = FALSE
+          )
+          hubValidations::check_for_errors(v)
+        shell: Rscript {0}
+
+      - name: Checkout and push to another repository
+        if: success()
+        uses: actions/checkout@v2
+        with:
+          repository: HpokinsIDD/rsv-forecast-hub_data
+          token: ${{ secrets.KJ3_PAT }}
+          path: ./rsv-forecast-hub_data
+          fetch-depth: 2
+
+      - name: Copy new files
+        run: |
+          FILES=$(git diff --name-only HEAD^ HEAD)
+          for FILE in $FILES
+          do
+            if [[ $FILE == model-output/* ]] || [[ $FILE == model-metadata/* ]]; then
+              mkdir -p ./rsv-forecast-hub_data/$(dirname $FILE)
+              cp $FILE ./rsv-forecast-hub_data/$FILE
+            fi
+          done
+
+      - name: Commit and push new files
+        run: |
+          cd ./rsv-forecast-hub_data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Upload new files to RSV data repo"
+            git push
+            echo "RSV data uploaded";
+          else
+            echo "no upload";
+          fi
+        shell: bash
+
