@@ -5,7 +5,7 @@
 This repository is designed to collect forecast data for the 2023-2024 RSV Forecast Hub run by Johns Hopkins University Infectious Disease Dynamics Group. This project collects forecasts for weekly new hospitalizations due to confirmed Respiratory Syncytial Virus (RSV). 
 
 # Forecasts of Confirmed RSV Hospitalizations Admissions During the 2023-2024 Season
-RSV-related hospitalizations are a major contributor to the overall burden of RSV in the United States. Tracking RSV-associated hospitalization rates helps public health professionals understand trends in virus circulation, estimate disease burden, and respond to outbreaks. Accurate predictions of hospital admissions linked to RSV will help support appropriate public health interventions and planning during the 2023-2024 RSV season, as COVID-19, influenza, and other respiratory pathogens are circulating. 
+RSV is the #1 cause of hospitalizations in children under 5 in the United States. Tracking RSV-associated hospitalization rates helps public health professionals understand trends in virus circulation, estimate disease burden, and respond to outbreaks. Accurate predictions of hospital admissions linked to RSV will help support appropriate public health interventions and planning during the 2023-2024 RSV season, as COVID-19, influenza, and other respiratory pathogens are circulating. 
 
 **How to Participate:**
 This RSV Forecast Hub will serve as a collaborative forecasting challenge for weekly laboratory confirmed RSV hospital admissions. Each week, participants are asked to provide national- and jurisdiction-specific probabilistic forecasts of the weekly number of confirmed RSV hospitalizations for the following three weeks. 
