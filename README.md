@@ -55,17 +55,17 @@ The weekly hospitalization number per location are going to be used as truth dat
 The repository stores and updates additional data relevant to the RSV modeling efforts in the [auxiliary-data/](https://github.com/HopkinsIDD/rsv-forecast-hub/tree/main/auxiliary-data) folder:
 
 - Population and census data:
--- National and State level name and fips code as used in the Hub and associated population size.
--- State level population size per year and per age from the US Census Bureau.
+  - National and State level name and fips code as used in the Hub and associated population size.
+  - State level population size per year and per age from the US Census Bureau.
 
 - Birth Rate:
--- Birth Number and Rate per state and per year from 1995 to 2022 included.
--- Data from the US Census Bureau and from the Centers for Disease Control and Prevention, National Center for Health Statistics. National Vital Statistics System, Natality on CDC WONDER Online Database.
+  - Birth Number and Rate per state and per year from 1995 to 2022 included.
+  - Data from the US Census Bureau and from the Centers for Disease Control and Prevention, National Center for Health Statistics. National Vital Statistics System, Natality on CDC WONDER Online Database.
 
 - RSV data:
--- The National Respiratory and Enteric Virus Surveillance System (NREVSS) data at national and state level.
--- The [Weekly Rates of Laboratory-Confirmed RSV Hospitalizations from the RSV-NET Surveillance System](https://data.cdc.gov/Public-Health-Surveillance/Weekly-Rates-of-Laboratory-Confirmed-RSV-Hospitali/29hc-w46k)
--- The [National Emergency Department Visits for COVID-19, Influenza, and Respiratory Syncytial Virus](https://www.cdc.gov/ncird/surveillance/respiratory-illnesses/index.html)
+  - The National Respiratory and Enteric Virus Surveillance System (NREVSS) data at national and state level.
+  - The [Weekly Rates of Laboratory-Confirmed RSV Hospitalizations from the RSV-NET Surveillance System](https://data.cdc.gov/Public-Health-Surveillance/Weekly-Rates-of-Laboratory-Confirmed-RSV-Hospitali/29hc-w46k)
+  - The [National Emergency Department Visits for COVID-19, Influenza, and Respiratory Syncytial Virus](https://www.cdc.gov/ncird/surveillance/respiratory-illnesses/index.html)
 
 ## Data License and Reuse:
 All source code that is specific to the overall project is available under an open-source MIT license. We note that this license does not cover model code from the various teams, model scenario data if there is (available under specified licenses as described above) and auxiliary data.
