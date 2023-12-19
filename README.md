@@ -34,17 +34,15 @@ A few auxiliary datasets have been posted in the GitHub repositority [auxiliary-
 ### Prediction Targets
 Participating teams are asked to provide **quantile forecasts of the weekly incident confirmed RSV hospital admissions (counts) in the 12 RSV-NET states, nationally for all ages, and for a set of minimal age groups** for the epidemiological week ending on the reference date as well as the three following weeks. Teams can, but are not required to, submit forecasts for all weekly horizons or all locations.
 
-**Weekly targets**
+**Weekly targets:**
 - Weekly reported all-age and age-specific state-level incident hospital admissions, based on RSV-NET. This dataset is updated daily and covers 2017-2023. There should be no adjustment for reporting (=raw data from RSV-NET dataset to be projected). 
 - All targets should be number of individuals, rather than rates. 
 
-**Age target**
-
-**Required:**
--  Weekly state-specific and national RSV hospitalizations for all ages (or 0-130) is the only mandatory age target. 
-
-Additional age details (optional):
-- Weekly state-specific and national RSV hospitalizations among individuals <1 yr, 1-4, 5-17, 18-49, 50-64, and 65+ (most of the RSV burden on hospitalizations comes from the 0-1 and 65+ age groups)
+**Age target:**
+- **Required:**
+  -  Weekly state-specific and national RSV hospitalizations for all ages (or 0-130) is the only mandatory age target. 
+- Additional age details (optional):
+  - Weekly state-specific and national RSV hospitalizations among individuals <1 yr, 1-4, 5-17, 18-49, 50-64, and 65+ (most of the RSV burden on hospitalizations comes from the 0-1 and 65+ age groups)
 
 ### Timeline
 *Add info here*
