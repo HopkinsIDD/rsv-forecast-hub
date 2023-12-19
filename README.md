@@ -41,10 +41,13 @@ Participating teams are asked to provide **quantile forecasts of the weekly inci
 **Age target**
 
 **Required:**
-- Hospital admissions should be provided for the following age groups: all ages, <1 yr, 1-4, 5-64, and 65+. (Most of the RSV burden on hospitalizations comes from the 0-1 and 65+ age groups)
+-  Weekly state-specific and national RSV hospitalizations for all ages (or 0-130) is the only mandatory age target. 
 
 Additional age details (optional):
-- Weekly state-specific and national RSV hospitalizations among individuals <1 yr, 1-4, 5-17, 18-49, 50-64, 65+, and all ages
+- Weekly state-specific and national RSV hospitalizations among individuals <1 yr, 1-4, 5-17, 18-49, 50-64, and 65+ (most of the RSV burden on hospitalizations comes from the 0-1 and 65+ age groups)
+
+### Timeline
+*Add info here*
 
 ## Target Data
 The [target-data/](https://github.com/HopkinsIDD/rsv-forecast-hub/tree/main/target-data) folder contains the RSV hospitalization data (also called "truth data") standardized from the [Weekly Rates of Laboratory-Confirmed RSV Hospitalizations from the RSV-NET Surveillance System](https://data.cdc.gov/Public-Health-Surveillance/Weekly-Rates-of-Laboratory-Confirmed-RSV-Hospitali/29hc-w46k/about_data).
