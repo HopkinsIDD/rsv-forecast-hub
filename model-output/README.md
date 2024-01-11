@@ -18,6 +18,7 @@ Both team and model should be less than 15 characters and not include hyphens no
 
 ## Metadata
 Each submission team should have an associated metadata file. The file should be submitted with the first projection in the [model-metadata/](https://github.com/HopkinsIDD/rsv-forecast-hub/edit/main/model-metadata) folder, in a file named: ```team-model.yaml```.
+
 For more information on the metadata file format, please consult the associated [README](https://github.com/HopkinsIDD/rsv-forecast-hub/edit/main/model-metadata/README.md) file.
 
 ## Date/Epiweek information
