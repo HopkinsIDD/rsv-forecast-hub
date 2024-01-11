@@ -9,3 +9,6 @@ Each sub-directory within the [model-metadata/](https://github.com/HopkinsIDD/rs
 team-model
 ```
 
+where 
+- ```team``` is the abbreviated team name (```team_abbr```) and
+- ```model``` is teh abbreviated name of your model (```model_abbr```).
