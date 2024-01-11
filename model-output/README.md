@@ -1,10 +1,9 @@
 # Data Submission Instructions
 
-This page is intended to provide teams with all the information they need to submit projections. 
+This page is intended to provide teams with all the information they need to submit forecasts. 
 
-All projectiosn should be submitted directly to the [model-output/](https://github.com/HopkinsIDD/rsv-forecast-hub/edit/main/model-output) folder. Data in this directory should be added to the repository through a pull request.
+All projections should be submitted directly to the [model-output/](https://github.com/HopkinsIDD/rsv-forecast-hub/edit/main/model-output) folder. Data in this directory should be added to the repository through a pull request so that automatic data validation checks are run.
 
-Due to file size limitations, the file can be submitted in a ```.parquet``` or ```.gz.parquet```.
 
 ## Sub-directory
 Each sub-directory within the [model-output/](https://github.com/HopkinsIDD/rsv-forecast-hub/edit/main/model-output) directory has the format:
@@ -16,7 +15,10 @@ team-model
 where 
 - ```team``` is the abbreviated team name, and
 - ```model``` is the abbreviated name of your model.
+
 Both team and model should be less than 15 characters and not include hyphens nor spaces.
+
+Within each sub-directory, there should be a metadata file, a license file (optional), and a set of forecasts.
 
 ## Metadata
 Each submission team should have an associated metadata file. The file should be submitted with the first projection in the [model-metadata/](https://github.com/HopkinsIDD/rsv-forecast-hub/edit/main/model-metadata) folder, in a file named: ```team-model.yaml```.
@@ -97,3 +99,13 @@ Each row in the file is a specific type of a scenario for a location on a partic
 | ```value``` | numeric |
 | ```run_grouping``` | numeric, integer |
 | ```stochastic_run``` | numeric, integer |
+
+
+### ```origin_date```
+Values in the ```origin_date``` column must be a date in the format
+
+```
+YYYY-MM-DD
+```
+
+The ```origin_date``` is the start date for projections (first d
