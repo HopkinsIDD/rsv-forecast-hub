@@ -1,7 +1,9 @@
 # Data Submission Instructions
 
 This page is intended to provide teams with all the information they need to submit projections. 
+
 All projectiosn should be submitted directly to the [model-output/](https://github.com/HopkinsIDD/rsv-forecast-hub/edit/main/model-output) folder. Data in this directory should be added to the repository through a pull request.
+
 Due to file size limitations, the file can be submitted in a ```.parquet``` or ```.gz.parquet```.
 
 ## Sub-directory
@@ -21,6 +23,39 @@ Each submission team should have an associated metadata file. The file should be
 
 For more information on the metadata file format, please consult the associated [README](https://github.com/HopkinsIDD/rsv-forecast-hub/edit/main/model-metadata/README.md) file.
 
-## Date/Epiweek information
+## Date/Epiweek Information
 For week-ahead projections, we will use the specification of epidemiological weeks (EWs) [defined by the US CDC](https://ndc.services.cdc.gov/wp-content/uploads/MMWR_Week_overview.pdf), which run Sunday through Saturday.
+
 There are standard software packages to convert from dates to epidemic weeks and vice versa, e.g. [MMWRweek](https://cran.r-project.org/web/packages/MMWRweek/) for R and [pymmwr](https://pypi.org/project/pymmwr/) and [epiweeks](https://pypi.org/project/epiweeks/) for python.
+
+## Model Results
+Each model results file within the sub-directory should have the following name format
+
+```
+YYYY-MM-DD-team-model.parquet
+```
+
+where
+- ```YYYY``` is the 4 digit year,
+- ```MM``` is the 2 digit month,
+- ```DD``` is the 2 digit day,
+- ```team``` is the teamname, and
+- ```model``` is the name of your model.
+
+"parquet" files format from Apache "is an open source, column-oriented data file format designed for efficient data storage and retrieval." More information can be found on the [parquet.apache.org](https://parquet.apache.org/) website.
+
+The "arrow" library can be used to read/write the files in [Python](https://arrow.apache.org/docs/python/parquet.html) and [R](https://arrow.apache.org/docs/r/index.html). Other tools are also accessible, for example [parquet-tools](https://github.com/hangxie/parquet-tools).
+
+For example, in R:
+
+```
+# To write "parquet" file format:
+filename <- ”path/YYYY-MM-DD-team_model.parquet”
+arrow::write_parquet(df, filename)
+# with "gz compression"
+filename <- ”path/YYYY-MM-DD-team_model.gz.parquet”
+arrow::write_parquet(df, filename, compression = "gzip", compression_level = 9)
+
+# To read "parquet" file format:
+arrow::read_parquet(filename)
+```
