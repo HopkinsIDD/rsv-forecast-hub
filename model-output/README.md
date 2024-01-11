@@ -81,7 +81,7 @@ The output file must contain eleven columns (in any order):
 - ```target_end_date```
 - ```location```
 - ```age_group```
-- ```output_type```
+- ```type```
 - ```quantile```
 - ```value```
 
