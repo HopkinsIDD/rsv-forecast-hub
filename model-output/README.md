@@ -59,3 +59,32 @@ arrow::write_parquet(df, filename, compression = "gzip", compression_level = 9)
 # To read "parquet" file format:
 arrow::read_parquet(filename)
 ```
+
+The date YYYY-MM-DD should correspond to the start date for the projections ("first date of simulated transmission/outcomes" as noted in the description on the main [README](https://github.com/HopkinsIDD/rsv-forecast-hub/edit/main/README.md)).
+
+The ```team``` and ```model``` in this file must match the ```team``` and ```model``` in the directory this file is in. Both ```team``` and ```model``` should be less than 15 characters, alpha-numeric and underscores only, with no spaces or hyphens.
+
+If the size of the file is larger than 100MB, it should be submitted in a ```.gz.parquet``` format.
+
+## Model Results File Format
+The output file must contain eleven columns (in any order):
+- ```origin_date```
+- ```scenario_id```
+- ```target```
+- ```horizon```
+- ```location```
+- ```age_group```
+- ```output_type```
+- ```output_type_id```
+- ```value```
+- ```run_grouping```
+- ```stochastic_run```
+
+No additional columns are allowed.
+
+Each row in the file is a specific type of a scenario for a location on a particular date for a particular target.
+
+| Column Name | Accepted Format |
+| --- | --- |
+| ```origin_date``` | character, date (datetime not accepted) |
+| ```scenario_id``` | character |
