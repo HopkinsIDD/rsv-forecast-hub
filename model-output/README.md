@@ -88,3 +88,12 @@ Each row in the file is a specific type of a scenario for a location on a partic
 | --- | --- |
 | ```origin_date``` | character, date (datetime not accepted) |
 | ```scenario_id``` | character |
+| ```target``` | character |
+| ```horizon``` | numeric, integer |
+| ```location``` | character |
+| ```age_group``` | character |
+| ```output_type``` | character |
+| ```output_type_id``` | numeric, character, logical (if all ```NA```) |
+| ```value``` | numeric |
+| ```run_grouping``` | numeric, integer |
+| ```stochastic_run``` | numeric, integer |
