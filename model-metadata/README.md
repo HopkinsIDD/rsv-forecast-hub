@@ -1,5 +1,11 @@
-# Model metadata
+# Model Metadata
 
-This folder should contain metadata files for the models submitting to the hub, following the recommended [model metadata guidelines in our documentation](https://hubdocs.readthedocs.io/en/latest/format/model-metadata.html).
+This folder contains metadata files for each team-model submitting to the RSV Forecast Hub.
 
-Since some metadata fields may be specific to this hub, creators of the hub are encouraged to modify the template model metadata file so that it is a valid model metadata file for your project.
+## Sub-directory
+Each sub-directory within the [model-metadata/](https://github.com/HopkinsIDD/rsv-forecast-hub/edit/main/model-metadata) directory has the format:
+
+```
+team-model
+```
+
