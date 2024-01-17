@@ -75,14 +75,14 @@ arrow::read_parquet(filename)
 If the size of the file is larger than 100MB, it should be submitted in a ```.gz.parquet``` format.
 
 ## Forecast File Format
-The output file must contain eleven columns (in any order):
-- ```forecast_date```
+The output file must contain eight columns (in any order):
+- ```origin_date```
 - ```target```
-- ```target_end_date```
+- ```horizon```
 - ```location```
 - ```age_group```
-- ```type```
-- ```quantile```
+- ```output_type```
+- ```output_type_id```
 - ```value```
 
 No additional columns are allowed.
@@ -93,40 +93,45 @@ Each row in the file is either a point or quantile forecast for a location on a 
 | --- | --- |
 | ```origin_date``` | character, date (datetime not accepted) |
 | ```target``` | character |
-| ```target_end_date``` | character, date (datetime not accepted) |
+| ```horizon``` | numeric, integer |
 | ```location``` | character |
 | ```age_group``` | character |
-| ```type``` | character |
-| ```quantile``` | numeric |
+| ```output_type``` | character |
+| ```output_type_id``` | numeric, character, logical (if all ```NA```) |
 | ```value``` | numeric |
 
 
-### ```forecast_date```
-Values in the ```forecast_date``` column must be a date in the format
+### ```origin_date```
+Values in the ```origin_date``` column must be a date in the format
 
 ```
 YYYY-MM-DD
 ```
 
-This is the date on which the submitted forecasts were available. This will typically be the date on which the computation finishes running and produces the standard formatted file. ```forecast_date``` should correspond and be redundant with the date in the filename, but is included here by request from some analysts. We will enforce that the ```forecast_date``` for a file must be either the date on which the file was submitted to the repository or the previous day. Exceptions will be made for legitimate extenuating circumstances.
+This is the date on which the submitted forecasts were available. This will typically be the date on which the computation finishes running and produces the standard formatted file. ```origin_date``` should correspond and be redundant with the date in the filename, but is included here by request from some analysts. We will enforce that the ```origin_date``` for a file must be either the date on which the file was submitted to the repository or the previous day. Exceptions will be made for legitimate extenuating circumstances.
 
 ### ```target```
-Values in the ```target``` column must be a character (string) and follow the format
+Values in the ```target``` column must be a character (string). Currently, we are asking for only one target (incident hospitalizations), so the target column must be:
 
-- "N wk ahead inc hosp" where N is a number between 1 and 8
+- ```"inc hosp"```
 
+This target is the incident (weekly) number of hospitalized cases predicted by the model during the week that is N (where N = 0, 1, 2, 3, 4) weeks after ```origin_date```.
+
+A week-ahead scenario should represent the total number of new hospitalized cases reported during a given epiweek (from Sunday through Saturday, inclusive). 
+
+#### Epi-week information
 For week-ahead forecasts, we will use the specification of epidemiological weeks (EWs) [defined by the US CDC](https://ndc.services.cdc.gov/wp-content/uploads/MMWR_Week_overview.pdf) which run Sunday through Saturday. There are standard software packages to convert from dates to epidemic weeks and vice versa, e.g. [MMWRweek](https://cran.r-project.org/web/packages/MMWRweek/) for R and [pymmwr](https://pypi.org/project/pymmwr/) and [epiweeks](https://pypi.org/project/epiweeks/) for python.
 
-For week-ahead forecasts with ```forecast_date``` of Sunday or Monday of EW12, a 1 week ahead forecast corresponds to EW12 and should ```have target_end_date``` of the Saturday of EW12. For week-ahead forecasts with ```forecast_date``` of Tuesday through Saturday of EW12, a 1 week ahead forecast corresponds to EW13 and should have ```target_end_date``` of the Saturday of EW13.
 
-### ```target_end_date```
-Values in the ```target_end_date``` column must be a date in the format
+### ```horizon```
+Values in the ```horizon``` column must be an integer N representing the associated target value during the N weeks after ```origin_date```. 
 
-```
-YYYY-MM-DD
-```
+For example, in the following table, the first row represent the number of incident hospitalizations in the US, for the 1st epiweek (epiweek ending on 2023-11-18, if start date is 2023-11-12).
 
-This is the date for the forecast ```target```. For "# wk" targets, ```target_end_date``` will be the Saturday at the end of the week time period.
+| origin_date | location | target | age_group | horizon | ... |
+| --- | --- | --- | --- | --- | --- |
+| 2023-11-12 | US | inc hosp | 0-130 | 1 | ... |
+
 
 ### ```location```
 Values in the ```location``` column must be one of the "locations" in this in this [FIPS numeric code file](https://github.com/reichlab/covid19-forecast-hub/blob/master/data-locations/locations.csv), which includes numeric FIPS codes for U.S. states, counties, territories, and districts, as well as "US" for national forecasts.
@@ -151,15 +156,15 @@ Aggregation of the previous list, for example: "0-17" is NOT accepted.
 
 Most of the age_group are optionals, however, the submission should contain at least the "0-130" age group (all ages).
 
-### ```type```
+### ```output_type```
 Values in the ```type``` column are either
 - "point" or
 - "quantile"
 
 This values indicates whether that row corresponds to a point forecast or a quantile forecast. Point forecasts are used in visualization, while quantile forecasts are used in visualization and in ensemble construction.
 
-### ```quantile```
-Values in the ```quantile``` column are either "NA" (if ```type``` is "point") or a quantile in the format
+### ```output_type_id```
+Values in the ```output_type_id``` column are either "NA" (if ```output_type``` is "point") or a quantile in the format
 
 ```
 0.###
