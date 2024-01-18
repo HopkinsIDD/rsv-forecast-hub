@@ -11,7 +11,7 @@ team-model
 
 where 
 - ```team``` is the abbreviated team name (```team_abbr```) and
-- ```model``` is teh abbreviated name of your model (```model_abbr```).
+- ```model``` is the abbreviated name of your model (```model_abbr```).
 
 Both team and model should be less than 15 characters and not include hyphens nor spaces.
 The ```team-model``` should correspond to the ```team-model``` sub-directory in the associated model-output folder containing the associated projections.
