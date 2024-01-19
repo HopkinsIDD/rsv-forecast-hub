@@ -108,7 +108,7 @@ Values in the ```origin_date``` column must be a date in the format
 YYYY-MM-DD
 ```
 
-This is the date on which the submitted forecasts were available. This will typically be the date on which the computation finishes running and produces the standard formatted file. ```origin_date``` should correspond and be redundant with the date in the filename, but is included here by request from some analysts. We will enforce that the ```origin_date``` for a file must be either the date on which the file was submitted to the repository or the previous day. Exceptions will be made for legitimate extenuating circumstances.
+This is the date on which the submitted forecasts were available. This will typically be the date on which the computation finishes running and produces the standard formatted file. ```origin_date``` should correspond and be redundant with the date in the filename but is included here to facilitate validation and analysis. We will enforce that the ```origin_date``` for a file must be either the date on which the file was submitted to the repository or the previous day. Exceptions will be made for legitimate extenuating circumstances.
 
 ### ```target```
 Values in the ```target``` column must be a character (string). Currently, we are asking for only one target (incident hospitalizations), so the target column must be:
@@ -143,18 +143,16 @@ Only those locations included in the RSV-NET target data are expected:
 
 ### ```age_group```
 Accepted values in the ```age_group``` column are:
+
 - "0-0.99"
 - "1-4" 
-- "5-17"
-- "18-49"
-- "50-64"
+- "5-64"
 - "65-130" 
-- "5-64" 
 - "0-130" (required)
 
-Aggregation of the previous list, for example: "0-17" is NOT accepted.
+Aggregation of the previous list, for example: "1-64" is NOT accepted.
 
-Most of the age_group are optionals, however, the submission should contain at least the "0-130" age group (all ages).
+Most of the age groups are optional, however, the submission should contain at least the "0-130" age group (all ages).
 
 ### ```output_type```
 Values in the ```type``` column are either
