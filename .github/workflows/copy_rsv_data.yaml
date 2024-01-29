@@ -18,7 +18,7 @@ jobs:
             fetch-depth: 1
             path: ./rsv-forecast-hub_data
         - name: Remove old rsvnet hospitalization data
-          run: rm ./rsv-forecast-hub/target-data/*_rsvnet_hospitalization.csv
+          run: rm ./rsv-forecast-hub/target-data/*_rsvnet_hospitalization.csv || true
         - name: Copy files
           run: |
             mkdir -p ./rsv-forecast-hub/target-data/archive/
