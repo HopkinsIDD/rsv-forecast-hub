@@ -2,8 +2,8 @@ name: Copy RSV target-data
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 8 * * 1'
-
+    - cron: '10 9 * * 5'
+# 10 minites after started update-rsv-data on rsv-forecast-hub
 
 jobs:
     copy-files:
@@ -17,13 +17,26 @@ jobs:
           with:
             fetch-depth: 1
             path: ./rsv-forecast-hub
-
+        - name: Remove old rsvnet hospitalization data
+          run: rm ./rsv-forecast-hub/target-data/*_rsvnet_hospitalization.csv || true
         - name: Copy files
           run: |
-            mkdir -p ./rsv-forecast-hub/target-data/
+            mkdir -p ./rsv-forecast-hub/target-data/archive/
             chmod +w ./rsv-forecast-hub/target-data/
-            wget -O ./rsv-forecast-hub/target-data/rsvnet_hospitalization.csv https://raw.githubusercontent.com/midas-network/rsv-scenario-modeling-hub/main/target-data/rsvnet_hospitalization.csv
-
+            FILES=$(curl -s https://api.github.com/repos/midas-network/rsv-scenario-modeling-hub/git/trees/main?recursive=1 | jq -r '.tree[] | select(.path | startswith("target-data/")) | .path')
+            for file in $FILES
+            do
+              FILENAME=$(basename $file)
+              if [[ $file == *_rsvnet_hospitalization.csv && $file != *archive* ]]; then
+                  if [[ ! -f ./rsv-forecast-hub/target-data/$FILENAME ]]; then
+                    curl -o ./rsv-forecast-hub/target-data/$FILENAME https://raw.githubusercontent.com/midas-network/rsv-scenario-modeling-hub/main/$file
+                  fi
+                elif [[ $file == *_rsvnet_hospitalization.csv && $file == *archive* ]]; then
+                  if [[ ! -f ./rsv-forecast-hub/target-data/archive/$FILENAME ]]; then
+                    curl -o ./rsv-forecast-hub/target-data/archive/$FILENAME https://raw.githubusercontent.com/midas-network/rsv-scenario-modeling-hub/main/$file
+                  fi
+                fi
+            done
         - name: Commit and push repository update
           run: |
             cd ./rsv-forecast-hub
