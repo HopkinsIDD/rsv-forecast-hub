@@ -2,8 +2,8 @@ name: Copy RSV target-data
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 8 * * 1'
-
+    - cron: '10 9 * * 5'
+# 10 minites after started update-rsv-data on rsv-forecast-hub
 
 jobs:
     copy-files:
@@ -16,17 +16,30 @@ jobs:
           uses: actions/checkout@v4
           with:
             fetch-depth: 1
-            path: ./rsv-forecast-hub
-
+            path: ./rsv-forecast-hub_data
+        - name: Remove old rsvnet hospitalization data
+          run: rm ./rsv-forecast-hub_data/target-data/*_rsvnet_hospitalization.csv
         - name: Copy files
           run: |
-            mkdir -p ./rsv-forecast-hub/target-data/
-            chmod +w ./rsv-forecast-hub/target-data/
-            wget -O ./rsv-forecast-hub/target-data/rsvnet_hospitalization.csv https://raw.githubusercontent.com/midas-network/rsv-scenario-modeling-hub/main/target-data/rsvnet_hospitalization.csv
-
+            mkdir -p ./rsv-forecast-hub_data/target-data/archive/
+            chmod +w ./rsv-forecast-hub_data/target-data/
+            FILES=$(curl -s https://api.github.com/repos/midas-network/rsv-scenario-modeling-hub/git/trees/main?recursive=1 | jq -r '.tree[] | select(.path | startswith("target-data/")) | .path')
+            for file in $FILES
+            do
+              FILENAME=$(basename $file)
+              if [[ $file == *_rsvnet_hospitalization.csv && $file != *archive* ]]; then
+                  if [[ ! -f ./rsv-forecast-hub_data/target-data/$FILENAME ]]; then
+                    curl -o ./rsv-forecast-hub_data/target-data/$FILENAME https://raw.githubusercontent.com/midas-network/rsv-scenario-modeling-hub/main/$file
+                  fi
+                elif [[ $file == *_rsvnet_hospitalization.csv && $file == *archive* ]]; then
+                  if [[ ! -f ./rsv-forecast-hub_data/target-data/archive/$FILENAME ]]; then
+                    curl -o ./rsv-forecast-hub_data/target-data/archive/$FILENAME https://raw.githubusercontent.com/midas-network/rsv-scenario-modeling-hub/main/$file
+                  fi
+                fi
+            done
         - name: Commit and push repository update
           run: |
-            cd ./rsv-forecast-hub
+            cd ./rsv-forecast-hub_data
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             if [ -n "$(git status --porcelain)" ]; then
