@@ -37,8 +37,8 @@ jobs:
         for FILE in $FILES
         do
           FILE=${FILE#source/}
-          mkdir -p ./rsv-forecast-hub_data/$(dirname $FILE)
-          cp $FILE ./rsv-forecast-hub_data/$FILE || echo "Failed to copy $FILE"
+          mkdir -p ../rsv-forecast-hub_data/$(dirname $FILE)
+          cp $FILE ../rsv-forecast-hub_data/$FILE || echo "Failed to copy $FILE"
         done
       shell: bash
 
