@@ -33,6 +33,7 @@ jobs:
         diff -qr source/hub-config/ rsv-forecast-hub_data/hub-config/ || true
         DIFF_OUTPUT=$(diff -qr source/hub-config/ rsv-forecast-hub_data/hub-config/ || true)
         FILES=$(echo "$DIFF_OUTPUT" | grep -o 'source/hub-config/.*' | cut -d ' ' -f 1)
+        cd source
         for FILE in $FILES
         do
           FILE=${FILE#source/}
