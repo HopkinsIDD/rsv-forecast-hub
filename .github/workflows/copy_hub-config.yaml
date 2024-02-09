@@ -30,7 +30,7 @@ jobs:
     - name: Copy updated files
       run: |
         cd source
-        FILES=$(git diff --name-only HEAD^ HEAD)
+        FILES=$(git diff --name-only HEAD)
         for FILE in $FILES
         do
           if [[ $FILE == hub-config/* ]]; then
@@ -38,6 +38,7 @@ jobs:
             cp --parents $FILE ./rsv-forecast-hub_data/hub-config/
           fi
         done
+      shell: bash
 
     - name: Commit and push changes
       run: |
