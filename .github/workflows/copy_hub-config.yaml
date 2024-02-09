@@ -27,16 +27,14 @@ jobs:
         path: ./rsv-forecast-hub_data
         fetch-depth: 2
 
-    - name: Copy updated files
+    - name: Compare and copy updated files
       run: |
-        cd source
-        FILES=$(git diff --name-only HEAD)
+        FILES=$(diff -qr source/hub-config/ rsv-forecast-hub_data/hub-config/ | grep -o 'source/hub-config/.*' | cut -d ' ' -f 1)
         for FILE in $FILES
         do
-          if [[ $FILE == hub-config/* ]]; then
-            mkdir -p ./rsv-forecast-hub_data/hub-config/
-            cp --parents $FILE ./rsv-forecast-hub_data/hub-config/
-          fi
+          FILE=${FILE#source/}
+          mkdir -p ./rsv-forecast-hub_data/$(dirname $FILE)
+          cp $FILE ./rsv-forecast-hub_data/$FILE
         done
       shell: bash
 
