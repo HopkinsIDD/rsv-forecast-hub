@@ -1,0 +1,58 @@
+name: Copy updated files to hub-config
+
+on: 
+  push:
+    branches: 
+      - main
+    paths:
+      - 'hub-config/**'
+  workflow_dispatch:
+
+jobs:
+  copy-files:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout current repo
+      uses: actions/checkout@v2
+      with:
+        path: source
+
+    - name: Checkout target repo
+      uses: actions/checkout@v2
+      with:
+        repository: HopkinsIDD/rsv-forecast-hub_data
+      #  repository: kjsato/rsv-forecast-hub_data
+        token: ${{ secrets.KJ3_PAT }}
+        path: ./rsv-forecast-hub_data
+        fetch-depth: 2
+
+    - name: Compare and copy updated files
+      run: |
+        set -x
+        diff -qr source/hub-config/ rsv-forecast-hub_data/hub-config/ || true
+        DIFF_OUTPUT=$(diff -qr source/hub-config/ rsv-forecast-hub_data/hub-config/ || true)
+        FILES=$(echo "$DIFF_OUTPUT" | grep -o 'source/hub-config/.*' | cut -d ' ' -f 1)
+        cd source
+        for FILE in $FILES
+        do
+          FILE=${FILE#source/}
+          mkdir -p ../rsv-forecast-hub_data/$(dirname $FILE)
+          cp $FILE ../rsv-forecast-hub_data/$FILE || echo "Failed to copy $FILE"
+        done
+      shell: bash
+
+    - name: Commit and push changes
+      run: |
+        cd ./rsv-forecast-hub_data
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        if [ -n "$(git status --porcelain)" ]; then
+          git add .
+          git commit -m "Upload new files to RSV data repo"
+          git push
+          echo "hub-config data uploaded";
+        else
+          echo "no upload";
+        fi
+      shell: bash
