@@ -30,6 +30,7 @@ jobs:
     - name: Compare and copy updated files
       run: |
         set -x
+        diff -qr source/hub-config/ rsv-forecast-hub_data/hub-config/
         FILES=$(diff -qr source/hub-config/ rsv-forecast-hub_data/hub-config/ | grep -o 'source/hub-config/.*' | cut -d ' ' -f 1)
         for FILE in $FILES
         do
