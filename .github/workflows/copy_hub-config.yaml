@@ -23,7 +23,7 @@ jobs:
       with:
         repository: HopkinsIDD/rsv-forecast-hub_data
       #  repository: kjsato/rsv-forecast-hub_data
-        token: ${{ secrets.KJ3_PAT }}
+        token: ${{ secrets.KJ3_PATC }}
         path: ./rsv-forecast-hub_data
         fetch-depth: 2
 
