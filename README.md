@@ -8,7 +8,7 @@ Respiratory Syncytial Virus (RSV) is the #1 cause of hospitalizations in childre
 This repository is designed to collect forecast data for the 2023-2024 RSV Forecast Hub run by Johns Hopkins University Infectious Disease Dynamics Group. This project collects forecasts for weekly new hospitalizations due to confirmed RSV. 
 
 ## How to Participate:
-This RSV Forecast Hub will serve as a collaborative forecasting challenge for weekly laboratory confirmed RSV hospital admissions. Each week, participants are asked to provide national- and jurisdiction-specific probabilistic forecasts of the weekly number of confirmed RSV hospitalizations for the following three weeks. The RSV Forecast Hub is open to any team willing to provide projections at the right temporal and spatial scales. We only require that participating teams share point estimates and uncertainty bounds, along with a short model description and answers to a list of key questions about design. 
+This RSV Forecast Hub will serve as a collaborative forecasting challenge for weekly laboratory confirmed RSV hospital admissions. Each week, participants are asked to provide national- and jurisdiction-specific probabilistic forecasts of the weekly number of confirmed RSV hospitalizations for the following four weeks. The RSV Forecast Hub is open to any team willing to provide projections at the right temporal and spatial scales. We only require that participating teams share point estimates and uncertainty bounds, along with a short model description and answers to a list of key questions about design. 
 
 Those interested in participating, please read the README file and email Kimberlyn Roosa at kroosa1@jh.edu. 
 
@@ -32,7 +32,7 @@ A few auxiliary datasets have been posted in the GitHub repositority [auxiliary-
 - State-specific ED data (only last year of data available)
 
 ### Prediction Targets
-Participating teams are asked to provide **quantile forecasts of the weekly incident confirmed RSV hospital admissions (counts) in the 12 RSV-NET states, nationally for all ages, and for a set of minimal age groups** for the epidemiological week ending on the reference date as well as the three following weeks. Teams can, but are not required to, submit forecasts for all weekly horizons or all locations.
+Participating teams are asked to provide **quantile forecasts of the weekly incident confirmed RSV hospital admissions (counts) in the 12 RSV-NET states, nationally for all ages, and for a set of minimal age groups** for the epidemiological week ending on the reference date as well as the four following weeks. Teams can, but are not required to, submit forecasts for all weekly horizons or all locations.
 
 **Weekly targets:**
 - Weekly reported all-age and age-specific state-level incident hospital admissions, based on RSV-NET. This dataset is updated daily and covers 2017-2023. There should be no adjustment for reporting (=raw data from RSV-NET dataset to be projected). 
