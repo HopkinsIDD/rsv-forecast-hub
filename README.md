@@ -10,7 +10,7 @@ This repository is designed to collect forecast data for the 2023-2024 RSV Forec
 ## How to Participate:
 This RSV Forecast Hub will serve as a collaborative forecasting challenge for weekly laboratory confirmed RSV hospital admissions. Each week, participants are asked to provide national- and jurisdiction-specific probabilistic forecasts of the weekly number of confirmed RSV hospitalizations for the following four weeks. The RSV Forecast Hub is open to any team willing to provide projections at the right temporal and spatial scales. We only require that participating teams share point estimates and uncertainty bounds, along with a short model description and answers to a list of key questions about design. 
 
-Those interested in participating, please read the README file and email Kimberlyn Roosa at kroosa1@jh.edu. 
+Those interested in participating, please read the [submission README](https://github.com/HopkinsIDD/rsv-forecast-hub/tree/main/model-output) and email Kimberlyn Roosa at kroosa1@jh.edu. 
 
 Model projections should be submitted via pull request to the [model-output/](https://github.com/HopkinsIDD/rsv-forecast-hub/tree/main/model-output) folder and associated metadata should be submitted at the same time to the [model-metadata/](https://github.com/HopkinsIDD/rsv-forecast-hub/tree/main/model-metadata) folder of this GitHub repository. 
 
