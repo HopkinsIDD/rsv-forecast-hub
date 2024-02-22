@@ -8,7 +8,7 @@ Respiratory Syncytial Virus (RSV) is the #1 cause of hospitalizations in childre
 This repository is designed to collect forecast data for the 2023-2024 RSV Forecast Hub run by Johns Hopkins University Infectious Disease Dynamics Group. This project collects forecasts for weekly new hospitalizations due to confirmed RSV. 
 
 ## How to Participate:
-This RSV Forecast Hub will serve as a collaborative forecasting challenge for weekly laboratory confirmed RSV hospital admissions. Each week, participants are asked to provide national- and jurisdiction-specific probabilistic forecasts of the weekly number of confirmed RSV hospitalizations for the following four weeks. The RSV Forecast Hub is open to any team willing to provide projections at the right temporal and spatial scales. We only require that participating teams share point estimates and uncertainty bounds, along with a short model description and answers to a list of key questions about design. 
+This RSV Forecast Hub will serve as a collaborative forecasting challenge for weekly laboratory confirmed RSV hospital admissions. Each week, participants are asked to provide national- and jurisdiction-specific probabilistic forecasts of the weekly number of confirmed RSV hospitalizations for the following four weeks. The RSV Forecast Hub is open to any team willing to provide projections at the right temporal and spatial scales. We only require that participating teams share quantile estimates, along with a short model description and answers to a list of key questions about design. 
 
 Those interested in participating, please read the [submission README](https://github.com/HopkinsIDD/rsv-forecast-hub/tree/main/model-output) and email Kimberlyn Roosa at kroosa1@jh.edu. 
 
@@ -45,7 +45,7 @@ Participating teams are asked to provide **quantile forecasts of the weekly inci
   - Weekly state-specific and national RSV hospitalizations among individuals <1 yr, 1-4, 5-17, 18-49, 50-64, and 65+ (most of the RSV burden on hospitalizations comes from the 0-1 and 65+ age groups)
 
 ### Timeline
-*Add info here*
+The RSV Forecast Hub challenge period will begin February 19, 2024 and run through May 13, 2024. Participating teams are asked to submit weekly forecasts by 11:59 PM Eastern Time each Monday. However, late forecasts will be accepted during this initial start-up period.
 
 ## Target Data
 The [target-data/](https://github.com/HopkinsIDD/rsv-forecast-hub/tree/main/target-data) folder contains the RSV hospitalization data (also called "truth data") standardized from the [Weekly Rates of Laboratory-Confirmed RSV Hospitalizations from the RSV-NET Surveillance System](https://data.cdc.gov/Public-Health-Surveillance/Weekly-Rates-of-Laboratory-Confirmed-RSV-Hospitali/29hc-w46k/about_data).
@@ -67,6 +67,11 @@ The repository stores and updates additional data relevant to the RSV modeling e
   - The National Respiratory and Enteric Virus Surveillance System (NREVSS) data at national and state level.
   - The [Weekly Rates of Laboratory-Confirmed RSV Hospitalizations from the RSV-NET Surveillance System](https://data.cdc.gov/Public-Health-Surveillance/Weekly-Rates-of-Laboratory-Confirmed-RSV-Hospitali/29hc-w46k)
   - The [National Emergency Department Visits for COVID-19, Influenza, and Respiratory Syncytial Virus](https://www.cdc.gov/ncird/surveillance/respiratory-illnesses/index.html)
+
+## Retrospective Analyses
+As this challenge is beginning late in the 2023-24 RSV season, we are asking that any willing team participate in a ‘retrospective forecasting’ exercise in addition to the weekly projections. For this, we ask that teams submit a ‘forecast’ for each week in the RSV season prior to the start of the challenge. 
+The [target-data/](https://github.com/HopkinsIDD/rsv-forecast-hub_data/tree/main/target-data) folder contains a sub-folder of archived data pulled on the date listed in the file name. Participants will utilize the data available at the time of the forecast, as if the projections were made in real-time with the data available at the time. 
+The first ```origin_date``` of this challenge will be 10-22-2023. Thus, data pulled on 10-20-2023, which contain data up to 10-14-2023, will be utilized to create projections from 10-15-2023. The data dates and corresponding origin_date can be found in the table provided in the US RSV Forecast Hub Guidelines. Data are not available for the weeks of 11-03-2023 and 11-24-2023, so we will not require submissions for these dates.
 
 ## Data License and Reuse:
 All source code that is specific to the overall project is available under an open-source MIT license. We note that this license does not cover model code from the various teams, model scenario data if there is (available under specified licenses as described above) and auxiliary data.
