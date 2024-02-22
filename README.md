@@ -1,6 +1,4 @@
-# RSV Forecast Hub
-
-**This repository is in development.**
+# US RSV Forecast Hub
 
 ## Rationale
 Respiratory Syncytial Virus (RSV) is the #1 cause of hospitalizations in children under 5 in the United States. Tracking RSV-associated hospitalization rates helps public health professionals understand trends in virus circulation, estimate disease burden, and respond to outbreaks. Accurate predictions of hospital admissions linked to RSV will help support appropriate public health interventions and planning during the 2023-2024 RSV season, as COVID-19, influenza, and other respiratory pathogens are circulating. 
