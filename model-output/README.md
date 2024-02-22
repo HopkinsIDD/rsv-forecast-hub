@@ -156,13 +156,13 @@ Most of the age groups are optional, however, the submission should contain at l
 
 ### ```output_type```
 Values in the ```type``` column are either
-- "point" or
-- "quantile"
+- "quantile" or
+- "sample"
 
-This values indicates whether that row corresponds to a point forecast or a quantile forecast. Point forecasts are used in visualization, while quantile forecasts are used in visualization and in ensemble construction.
+This value indicates whether the value in that row corresponds to a quantile forecast or a sample trajectory. 
 
 ### ```output_type_id```
-Values in the ```output_type_id``` column are either "NA" (if ```output_type``` is "point") or a quantile in the format
+Values in the ```output_type_id``` column are either "NA" (if ```output_type``` is "sample") or a quantile in the format
 
 ```
 0.###
@@ -180,4 +180,4 @@ c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99)
 ```
 
 ### ```value```
-Values in the ```value``` column are non-negative numbers indicating the "point" or "quantile" prediction for this row. For a "point" prediction, ```value``` is simply the value of that point prediction for the ```target``` and ```location``` associated with that row. For a "quantile" prediction, ```value``` is the inverse of the cumulative distribution function (CDF) for the ```target```, ```location```, and ```quantile``` associated with that row.
+Values in the ```value``` column are non-negative numbers indicating the "quantile" or "sample" prediction for this row.  For a "quantile" prediction, ```value``` is the inverse of the cumulative distribution function (CDF) for the ```target```, ```location```, and ```quantile``` associated with that row.
