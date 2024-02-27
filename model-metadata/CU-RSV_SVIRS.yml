@@ -1,3 +1,4 @@
+schema_version: "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json"
 team_name: "Columbia University"
 team_abbr: "CU"
 model_name: "RSV_SVIRS"
@@ -18,6 +19,7 @@ license: "cc-by-4.0"
 methods: "Age-structured SVIRS model coupled with Ensemble Adjustment Kalman Filter. Inputs CDC RSV-NET, POLYMOD contact matrix, and seasonal absolute humidity"
 methods_long: "Age-structured state-level SVIRS compartmental model coupled with Ensemble Adjustment Kalman Filter. Model is fit to CDC RSV-NET data.  Each state’s population divided into age categories: <1, 1-4, 5-64, and 65+.  Model transmission rate is modified by seasonal absolute humidity.  Contacts between age groups are informed by the POLYMOD study. 300 ensemble members are initialized for each location."
 model_version: "1.0"
+website_url:"https://wedonthaveawebsite.com"
 team_funding: "CSTE NU38OT00297"
 data_inputs: "CDC RSV-NET, POLYMOD contact matrix, and seasonal absolute humidity"
 
