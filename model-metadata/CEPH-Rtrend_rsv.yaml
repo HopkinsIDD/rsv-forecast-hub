@@ -1,7 +1,9 @@
+schema_version: "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json"
 team_name: "CEPH Lab at Indiana University"
 team_abbr: "CEPH"
 model_name: "Rtrend RSV"
 model_abbr: "Rtrend_rsv"
+model_version: 2024-01-08
 model_contributors: [
   {
     "name": "Marco Ajelli",
