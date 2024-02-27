@@ -23,24 +23,19 @@ The data has been standardized and posted on the rsv-forecast-hub github [target
 
 The source of age distribution used for calibration (RSV-NET vs other estimates) should be provided in the abstract metadata that is submitted with the projections.
 
-**Other RSV datasets available for calibration:**
-A few auxiliary datasets have been posted in the GitHub repositority [auxiliary-data/](https://github.com/HopkinsIDD/rsv-forecast-hub/tree/main/auxiliary-data) folder including:
-
-- State-specific CDC surveillance from NVERSS (only last year of data available)
-- State-specific ED data (only last year of data available)
 
 ### Prediction Targets
-Participating teams are asked to provide **quantile forecasts of the weekly incident confirmed RSV hospital admissions (counts) in the 12 RSV-NET states, nationally for all ages, and for a set of minimal age groups** for the epidemiological week ending on the reference date as well as the four following weeks. Teams can, but are not required to, submit forecasts for all weekly horizons or all locations.
+Participating teams are asked to provide **quantile forecasts of the weekly incident confirmed RSV hospital admissions (counts) in the 12 RSV-NET states, nationally for all ages, and for a set of minimal age groups** for the four weeks following the epidemiological week that begins on the origin date. Teams can, but are not required to, submit forecasts for all age groups or all locations.
 
 **Weekly targets:**
-- Weekly reported all-age and age-specific state-level incident hospital admissions, based on RSV-NET. This dataset is updated daily and covers 2017-2023. There should be no adjustment for reporting (=raw data from RSV-NET dataset to be projected). 
+- Weekly reported all-age and age-specific state-level incident hospital admissions, based on RSV-NET. This dataset is updated daily and covers 2017-2024. There should be no adjustment for reporting (=raw data from RSV-NET dataset to be projected). 
 - All targets should be number of individuals, rather than rates. 
 
 **Age target:**
 - **Required:**
   -  Weekly state-specific and national RSV hospitalizations for all ages (or 0-130) is the only mandatory age target. 
 - Additional age details (optional):
-  - Weekly state-specific and national RSV hospitalizations among individuals <1 yr, 1-4, 5-17, 18-49, 50-64, and 65+ (most of the RSV burden on hospitalizations comes from the 0-1 and 65+ age groups)
+  - Weekly state-specific and national RSV hospitalizations among individuals <1 yr, 1-4, 5-64, and 65+ (most of the RSV burden on hospitalizations comes from the 0-1 and 65+ age groups)
 
 ### Timeline
 The RSV Forecast Hub challenge period will begin February 19, 2024 and run through May 13, 2024. Participating teams are asked to submit weekly forecasts by 11:59 PM Eastern Time each Monday. However, late forecasts will be accepted during this initial start-up period.
@@ -57,19 +52,11 @@ The repository stores and updates additional data relevant to the RSV modeling e
   - National and State level name and fips code as used in the Hub and associated population size.
   - State level population size per year and per age from the US Census Bureau.
 
-- Birth Rate:
-  - Birth Number and Rate per state and per year from 1995 to 2022 included.
-  - Data from the US Census Bureau and from the Centers for Disease Control and Prevention, National Center for Health Statistics. National Vital Statistics System, Natality on CDC WONDER Online Database.
-
-- RSV data:
-  - The National Respiratory and Enteric Virus Surveillance System (NREVSS) data at national and state level.
-  - The [Weekly Rates of Laboratory-Confirmed RSV Hospitalizations from the RSV-NET Surveillance System](https://data.cdc.gov/Public-Health-Surveillance/Weekly-Rates-of-Laboratory-Confirmed-RSV-Hospitali/29hc-w46k)
-  - The [National Emergency Department Visits for COVID-19, Influenza, and Respiratory Syncytial Virus](https://www.cdc.gov/ncird/surveillance/respiratory-illnesses/index.html)
 
 ## Retrospective Analyses
 As this challenge is beginning late in the 2023-24 RSV season, we are asking that any willing team participate in a ‘retrospective forecasting’ exercise in addition to the weekly projections. For this, we ask that teams submit a ‘forecast’ for each week in the RSV season prior to the start of the challenge. 
 The [target-data/](https://github.com/HopkinsIDD/rsv-forecast-hub_data/tree/main/target-data) folder contains a sub-folder of archived data pulled on the date listed in the file name. Participants will utilize the data available at the time of the forecast, as if the projections were made in real-time with the data available at the time. 
-The first ```origin_date``` of this challenge will be 10-22-2023. Thus, data pulled on 10-20-2023, which contain data up to 10-14-2023, will be utilized to create projections from 10-15-2023. The data dates and corresponding ```origin_date``` can be found in the table provided in the US RSV Forecast Hub Guidelines. Data are not available for the weeks of 11-03-2023 and 11-24-2023, so we will not require submissions for these dates.
+The first ```origin_date``` of this challenge will be 10-22-2023. Thus, data pulled on 10-20-2023, which contain data up to 10-14-2023, will be utilized to create projections. The data dates and corresponding ```origin_date``` can be found in the table provided in the US RSV Forecast Hub Guidelines. Data are not available for the weeks of 11-03-2023 and 11-24-2023, so we will not require submissions for these dates.
 
 ## Data License and Reuse:
 All source code that is specific to the overall project is available under an open-source MIT license. We note that this license does not cover model code from the various teams, model scenario data if there is (available under specified licenses as described above) and auxiliary data.
