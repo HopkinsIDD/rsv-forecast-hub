@@ -30,3 +30,6 @@ model_version: "1.0"
 website_url: "https://url_to_team2_modelb_website.com"
 team_funding: "funding information"
 citation: "Gibson GC , Reich NG , Sheldon D. Real-time mechanistic bayesian forecasts of Covid-19 mortality. medRxiv. 2020. https://doi.org/10.1101/2020.12.22.20248736"
+include_ensemble: false
+include_eval: false
+ensemble_of_hub_models: false
