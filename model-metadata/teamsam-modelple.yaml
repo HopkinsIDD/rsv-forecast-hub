@@ -2,7 +2,7 @@ schema_version: "https://raw.githubusercontent.com/Infectious-Disease-Modeling-H
 team_name: "Team Sam"
 team_abbr: "teamsam"
 model_name: "Model Ple"
-model_abbr: "modelpleb"
+model_abbr: "modelple"
 model_contributors: [
   {
     "name": "Smith J",
