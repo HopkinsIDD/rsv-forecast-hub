@@ -108,7 +108,7 @@ Values in the ```origin_date``` column must be a date in the format
 YYYY-MM-DD
 ```
 
-This is the date on which the submitted forecasts were available. This will typically be the date on which the computation finishes running and produces the standard formatted file. ```origin_date``` should correspond and be redundant with the date in the filename but is included here to facilitate validation and analysis. We will enforce that the ```origin_date``` for a file must be either the date on which the file was submitted to the repository or the previous day. Exceptions will be made for legitimate extenuating circumstances.
+This is the first date of the week for that week's forecast, and must always be a Sunday. ```origin_date``` should correspond and be redundant with the date in the filename but is included here to facilitate validation and analysis. No data should be used for fitting/calibration on or after the ```origin_date```.
 
 ### ```target```
 Values in the ```target``` column must be a character (string). Currently, we are asking for only one target (incident hospitalizations), so the target column must be:
@@ -124,7 +124,7 @@ For week-ahead forecasts, we will use the specification of epidemiological weeks
 
 
 ### ```horizon```
-Values in the ```horizon``` column must be an integer N representing the associated target value during the N weeks after ```origin_date```. 
+Values in the ```horizon``` column must be an integer N representing the associated target value during the N weeks after ```origin_date```. The required horizons include 1, 2, 3, 4; the horizon of 0 is optional.
 
 For example, in the following table, the first row represent the number of incident hospitalizations in the US, for the 1st epiweek (epiweek ending on 2023-11-18, if start date is 2023-11-12).
 
