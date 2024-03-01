@@ -5,6 +5,8 @@ Respiratory Syncytial Virus (RSV) is the #1 cause of hospitalizations in childre
 
 This repository is designed to collect forecast data for the 2023-2024 RSV Forecast Hub run by Johns Hopkins University Infectious Disease Dynamics Group. This project collects forecasts for weekly new hospitalizations due to confirmed RSV. 
 
+The most recent RSV forecasts on the [RSV Forecast Hub dashboard](https://hopkinsidd.github.io/rsv-forecast-hub_website/).
+
 ## How to Participate:
 This RSV Forecast Hub will serve as a collaborative forecasting challenge for weekly laboratory confirmed RSV hospital admissions. Each week, participants are asked to provide national- and jurisdiction-specific probabilistic forecasts of the weekly number of confirmed RSV hospitalizations for the following four weeks. The RSV Forecast Hub is open to any team willing to provide projections at the right temporal and spatial scales. We only require that participating teams share quantile estimates, along with a short model description and answers to a list of key questions about design. 
 
