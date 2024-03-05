@@ -26,14 +26,20 @@ jobs:
 
       - name: Copy new files
         run: |
+          cd ..
           FILES=$(git diff --name-only HEAD^ HEAD)
-          for FILE in $FILES
-          do
-            if [[ $FILE == model-output/* ]] || [[ $FILE == model-metadata/* ]]; then
-              mkdir -p ./rsv-forecast-hub_data/$(dirname $FILE)
-              cp $FILE ./rsv-forecast-hub_data/$FILE
-            fi
-          done
+          if [ -d "./rsv-forecast-hub_data" ]; then
+            cd ./rsv-forecast-hub_data
+            for FILE in $FILES
+            do
+              if [[ $FILE == model-output/* ]] || [[ $FILE == model-metadata/* ]]; then
+                mkdir -p ./rsv-forecast-hub_data/$(dirname $FILE)
+                cp $FILE ./rsv-forecast-hub_data/$FILE
+              fi
+            done
+          else
+            echo "Directory ./rsv-forecast-hub_data does not exist"
+          fi
 
       - name: Commit and push new files
         run: |
