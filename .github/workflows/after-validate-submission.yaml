@@ -2,7 +2,7 @@ name: After Validate Submission Workflow
 
 on:
   workflow_run:
-    workflows: ["Validate Submission"]  # The name of the workflow we want to trigger from
+    workflows: ["Hub Submission Validation (R)"]  # The name of the workflow we want to trigger from
     types:
       - completed
 
