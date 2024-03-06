@@ -1,15 +1,19 @@
 name: After Validate Submission Workflow
 
 on:
-  workflow_run:
-    workflows: ["Hub Submission Validation (R)"]  # The name of the workflow we want to trigger from
+  #workflow_run:
+  #  workflows: ["Hub Submission Validation (R)"]  # The name of the workflow we want to trigger from
+  #  types:
+  #    - completed
+  pull_request:
     types:
-      - completed
+      - closed
 
 jobs:
   copy-files-to-rsv-data-repo:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: github.event.pull_request.merged == true
     steps:
       - name: Checkout
         uses: actions/checkout@v2
