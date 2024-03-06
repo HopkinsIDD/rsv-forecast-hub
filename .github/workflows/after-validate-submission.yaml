@@ -1,0 +1,52 @@
+name: After Validate Submission Workflow
+
+on:
+  workflow_run:
+    workflows: ["Hub Submission Validation (R)"]  # The name of the workflow we want to trigger from
+    types:
+      - completed
+
+jobs:
+  copy-files-to-rsv-data-repo:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Checkout and push to another repository
+        uses: actions/checkout@v2
+        with:
+          #repository: HopkinsIDD/rsv-forecast-hub_data
+          repository: kjsato/rsv-forecast-hub_data
+          token: ${{ secrets.KJ3_PATC }}
+          path: ./rsv-forecast-hub_data
+          fetch-depth: 2
+
+      - name: Copy new files
+        run: |
+          FILES=$(git diff --name-only HEAD^ HEAD)
+          for FILE in $FILES
+          do
+            if [[ $FILE == model-output/* ]] || [[ $FILE == model-metadata/* ]]; then
+              mkdir -p ./rsv-forecast-hub_data/$(dirname $FILE)
+              cp $FILE ./rsv-forecast-hub_data/$FILE
+            fi
+          done
+          
+      - name: Commit and push new files
+        run: |
+          cd ./rsv-forecast-hub_data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Upload new files to RSV data repo"
+            git push
+            echo "RSV data uploaded";
+          else
+            echo "no upload";
+          fi
+        shell: bash

@@ -36,7 +36,7 @@ jobs:
       - name: Install HubValidations
         run: |
           install.packages("remotes")
-          remotes::install_github("Infectious-Disease-Modeling-Hubs/hubValidations")
+          remotes::install_github("Infectious-Disease-Modeling-Hubs/hubValidations", upgrade = "always")
         shell: Rscript {0}
 
       - name: Run validations
@@ -52,38 +52,4 @@ jobs:
           hubValidations::check_for_errors(v)
         shell: Rscript {0}
 
-      - name: Checkout and push to another repository
-        if: success()
-        uses: actions/checkout@v2
-        with:
-          repository: HopkinsIDD/rsv-forecast-hub_data
-          token: ${{ secrets.KJ3_PAT }}
-          path: ./rsv-forecast-hub_data
-          fetch-depth: 2
-
-      - name: Copy new files
-        run: |
-          FILES=$(git diff --name-only HEAD^ HEAD)
-          for FILE in $FILES
-          do
-            if [[ $FILE == model-output/* ]] || [[ $FILE == model-metadata/* ]]; then
-              mkdir -p ./rsv-forecast-hub_data/$(dirname $FILE)
-              cp $FILE ./rsv-forecast-hub_data/$FILE
-            fi
-          done
-
-      - name: Commit and push new files
-        run: |
-          cd ./rsv-forecast-hub_data
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain)" ]; then
-            git add .
-            git commit -m "Upload new files to RSV data repo"
-            git push
-            echo "RSV data uploaded";
-          else
-            echo "no upload";
-          fi
-        shell: bash
 
