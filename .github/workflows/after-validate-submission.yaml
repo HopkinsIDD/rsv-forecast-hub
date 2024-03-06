@@ -27,10 +27,8 @@ jobs:
 
       - name: Copy new files
         run: |
-          FILES=$(git diff --name-only HEAD^ HEAD)
-          for FILE in $FILES
-          do
-            if [[ $FILE == model-output/* ]] || [[ $FILE == model-metadata/* ]]; then
+          for FILE in model-output/**/* model-metadata/*; do
+            if [ -f "$FILE" ]; then
               mkdir -p ./rsv-forecast-hub_data/$(dirname $FILE)
               cp $FILE ./rsv-forecast-hub_data/$FILE
             fi
