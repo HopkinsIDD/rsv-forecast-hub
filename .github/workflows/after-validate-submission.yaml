@@ -1,38 +1,43 @@
 name: After Validate Submission Workflow
 
 on:
-  workflow_run:
-    workflows: ["Validate Submission"]  # The name of the workflow we want to trigger from
+  #workflow_run:
+  #  workflows: ["Hub Submission Validation (R)"]  # The name of the workflow we want to trigger from
+  #  types:
+  #    - completed
+  pull_request:
     types:
-      - completed
+      - closed
 
 jobs:
-  job1:
+  copy-files-to-rsv-data-repo:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: github.event.pull_request.merged == true
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
 
       - name: Checkout and push to another repository
         uses: actions/checkout@v2
         with:
           repository: HopkinsIDD/rsv-forecast-hub_data
+          #repository: kjsato/rsv-forecast-hub_data
           token: ${{ secrets.KJ3_PATC }}
           path: ./rsv-forecast-hub_data
           fetch-depth: 2
 
       - name: Copy new files
         run: |
-          FILES=$(git diff --name-only HEAD^ HEAD)
-          for FILE in $FILES
-          do
-            if [[ $FILE == model-output/* ]] || [[ $FILE == model-metadata/* ]]; then
+          for FILE in model-output/**/* model-metadata/*; do
+            if [ -f "$FILE" ]; then
               mkdir -p ./rsv-forecast-hub_data/$(dirname $FILE)
               cp $FILE ./rsv-forecast-hub_data/$FILE
             fi
           done
-
+          
       - name: Commit and push new files
         run: |
           cd ./rsv-forecast-hub_data
