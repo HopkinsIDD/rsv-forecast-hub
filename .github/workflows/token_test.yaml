@@ -13,7 +13,9 @@ jobs:
         with:
           repository: HopkinsIDD/rsv-forecast-hub_data
           token: ${{ secrets.KJ3_PATC }}
+          path: ./rsv-forecast-hub_data
           fetch-depth: 2
+          ref: main
 
       - name: List files in the repository
         run: ls -la
