@@ -1,4 +1,4 @@
-name: Test KJ3_PATC Token
+name: Test Token
 
 on: 
   workflow_dispatch:
