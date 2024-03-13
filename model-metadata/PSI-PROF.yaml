@@ -1,3 +1,4 @@
+schema_version: "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json"
 team_name: "Predictive Science Inc."
 team_abbr: "PSI"
 model_name: "Package for Respiratory Disease Open-source Forecasting"
