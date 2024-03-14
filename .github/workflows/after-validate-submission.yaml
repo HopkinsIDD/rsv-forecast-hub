@@ -5,7 +5,7 @@ on:
   #  workflows: ["Hub Submission Validation (R)"]  # The name of the workflow we want to trigger from
   #  types:
   #    - completed
-  pull_request:
+  pull_request_target:
     types:
       - closed
 
@@ -23,11 +23,12 @@ jobs:
       - name: Checkout and push to another repository
         uses: actions/checkout@v2
         with:
-          #repository: HopkinsIDD/rsv-forecast-hub_data
-          repository: kjsato/rsv-forecast-hub_data
+          #repository: kjsato/rsv-forecast-hub_data
+          repository: HopkinsIDD/rsv-forecast-hub_data
           token: ${{ secrets.KJ3_PATC }}
           path: ./rsv-forecast-hub_data
           fetch-depth: 2
+          ref: main
 
       - name: Copy new files
         run: |
