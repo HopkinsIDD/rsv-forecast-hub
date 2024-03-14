@@ -1,4 +1,4 @@
-name: Test Token
+name: Test Token on accessing data 
 
 on: 
   workflow_dispatch:
