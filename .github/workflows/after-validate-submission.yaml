@@ -52,7 +52,7 @@ jobs:
       - name: Install hubUtils
         run: |
            Rscript -e 'install.packages("remotes")'
-           Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubUtils")'
+           Rscript -e 'Sys.setenv("R_GITHUB_PAT" = "${{ secrets.KJ3_PATC }}"); install.packages("remotes"); remotes::install_github("Infectious-Disease-Modeling-Hubs/hubUtils")'
         env:
            R_GITHUB_PAT: ${{ secrets.KJ3_PATC }}
       - name: Install hubData
