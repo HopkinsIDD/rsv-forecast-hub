@@ -1,9 +1,8 @@
 ## ensemble.R customized for rsv-forecast-hub, split from rsv-forecast-hub_data
 
 local_path <- paste0(dirname(here::here()))
-
-dir_path <- file.path(local_path, "rsv-forecast-hub/")
-data_path <- file.path(local_path, "rsv-forecast-hub/")
+dir_path <- file.path(local_path, "rsv-forecast-hub-kjsato/")
+data_path <- file.path(local_path, "rsv-forecast-hub-kjsato/")
 
 
 ## ----lib-ens, include=FALSE---------------------------------------------------
@@ -13,6 +12,7 @@ library(hubUtils)
 library(hubData)
 library(hubEnsembles)
 library(dplyr)
+library(purrr)
 
 ## ----setup_specifics, include=FALSE---------------------------------------------------
 
@@ -22,7 +22,7 @@ dates_archive <- dates_archive[as.Date(dates_archive) <= Sys.Date()]
 curr_origin_date <- as.Date(max(dates_archive, na.rm = TRUE))
 
 ## ----prep_ens, include=FALSE--------------------------------------------------
-hub_path <- file.path(local_path, "rsv-forecast-hub/")
+hub_path <- file.path(local_path, "rsv-forecast-hub-kjsato/")
 hub_con <- connect_hub(hub_path)
 
 ## ----load_data, include=FALSE--------------------------------------------------
@@ -41,13 +41,13 @@ projection_data_all <- file_paths %>%
   map_df(~{
     # func selection according to the input file format
     read_fun <- ifelse(grepl("\\.parquet$", .x), arrow::read_parquet, readr::read_csv)
-    
+
     # read data
     data <- read_fun(.x, stringsAsFactors = FALSE)
-    
+
     # append the team name in "model_id"
     data$model_id <- basename(dirname(.x))
-    
+
     # return data
     data
   })
