@@ -82,7 +82,6 @@ jobs:
               cp $FILE ./rsv-forecast-hub_data/$FILE
             fi
           done
-          
       - name: Commit and push new files
         run: |
           cd ./rsv-forecast-hub_data
