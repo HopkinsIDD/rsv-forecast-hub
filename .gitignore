@@ -68,3 +68,6 @@ rsconnect/
 # RMD files
 *.log
 *.tex
+
+# VSCode
+*.code-workspace
