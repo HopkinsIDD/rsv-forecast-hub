@@ -13,6 +13,8 @@ jobs:
   copy-files-to-rsv-data-repo:
     runs-on: ubuntu-latest
     # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    env:
+        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     if: github.event.pull_request.merged == true
     steps:
       - name: Checkout
@@ -49,19 +51,21 @@ jobs:
         run: Rscript -e 'install.packages("dplyr")'
       - name: Install jsonlite package
         run: Rscript -e 'install.packages("jsonlite")'
+      - name: Install purrr package
+        run: Rscript -e 'install.packages("purrr")'
+      - name: Install hubViz
+        run: |
+           Rscript -e 'install.packages("remotes")'
+           Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubVis")'
       - name: Install hubUtils
         run: |
-            Rscript -e 'Sys.setenv("R_GITHUB_PAT" = "${{ secrets.KJ3_PATC }}"); install.packages("remotes"); remotes::install_github("Infectious-Disease-Modeling-Hubs/hubUtils")'
-          #  install.packages("remotes")
-          #  remotes::install_github("Infectious-Disease-Modeling-Hubs/hubUtils")
-        env:
-           R_GITHUB_PAT: ${{ secrets.KJ3_PATC }}
+           Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubUtils")'
+      - name: Install hubEnsembles
+        run: |
+           Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubEnsembles")'
       - name: Install hubData
         run: |
            Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubData")'
-      - name: Install hubEnsembles
-        run: |
-           Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubEnsembles)'
       - name: Run R script
         run: |
           cd ./scripts
