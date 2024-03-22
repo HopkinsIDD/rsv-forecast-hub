@@ -12,6 +12,8 @@ on:
 jobs:
   copy-files-to-rsv-data-repo:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     if: github.event.pull_request.merged == true
     steps:
