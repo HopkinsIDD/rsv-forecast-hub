@@ -20,6 +20,7 @@ library(jsonlite)
 
 ## ----setup_specifics, include=FALSE---------------------------------------------------
 print(file.path("../hub-config/tasks.json"))
+print(getwd())
 dates_archive <- unlist(jsonlite::read_json(file.path("../hub-config/tasks.json"))$rounds[[1]]$model_tasks[[1]]$task_ids$origin_date$optional)
 dates_archive <- dates_archive[as.Date(dates_archive) <= Sys.Date()]
 
