@@ -48,6 +48,7 @@ output_path <- file.path(dir_path, "model-output")
 # all file paths retrieval
 file_paths <- list.files(output_path, pattern = "\\.parquet$|\\.csv$", full.names = TRUE, recursive = TRUE)
 file_paths <- file_paths[grepl(curr_origin_date, file_paths)]
+print(file_paths)
 
 # read the files, and concatenate all the data frames with adding the team name in "model_id" column
 projection_data_all <- file_paths %>%
@@ -58,6 +59,11 @@ projection_data_all <- file_paths %>%
     # read data
     data <- read_fun(.x, stringsAsFactors = FALSE)
 
+    # check if 'origin_date' column exists
+    if (!"origin_date" %in% names(data)) {
+      print(paste("File", .x, "does not contain 'origin_date' column"))
+    }
+    
     # append the team name in "model_id"
     data$model_id <- basename(dirname(.x))
 
