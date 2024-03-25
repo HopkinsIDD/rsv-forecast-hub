@@ -30,6 +30,7 @@ dates_archive <- unlist(jsonlite::read_json(file.path(dir_path, "hub-config/task
 dates_archive <- dates_archive[as.Date(dates_archive) <= Sys.Date()]
 
 curr_origin_date <- as.Date(max(dates_archive, na.rm = TRUE))
+curr_origin_date <_ as.Date("2024-03-17")
 
 ## ----prep_ens, include=FALSE--------------------------------------------------
 
@@ -63,7 +64,7 @@ projection_data_all <- file_paths %>%
     if (!"origin_date" %in% names(data)) {
       print(paste("File", .x, "does not contain 'origin_date' column"))
     }
-    
+
     # append the team name in "model_id"
     data$model_id <- basename(dirname(.x))
 
