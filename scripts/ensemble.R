@@ -34,7 +34,7 @@ curr_origin_date <- as.Date(max(dates_archive, na.rm = TRUE))
 ## ----prep_ens, include=FALSE--------------------------------------------------
 
 hub_path <- file.path(dir_path, "hub-config")
-
+print(hub_path)
 hub_con <- connect_hub(hub_path)
 
 ## ----load_data, include=FALSE--------------------------------------------------
