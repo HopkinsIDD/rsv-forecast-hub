@@ -16,13 +16,13 @@ library(purrr)
 
 ## ----setup_specifics, include=FALSE---------------------------------------------------
 
-dates_archive <- unlist(jsonlite::read_json(file.path(local_path, "../hub-config/tasks.json"))$rounds[[1]]$model_tasks[[1]]$task_ids$origin_date$optional)
+dates_archive <- unlist(jsonlite::read_json(file.path(local_path, "hub-config/tasks.json"))$rounds[[1]]$model_tasks[[1]]$task_ids$origin_date$optional)
 dates_archive <- dates_archive[as.Date(dates_archive) <= Sys.Date()]
 
 curr_origin_date <- as.Date(max(dates_archive, na.rm = TRUE))
 
 ## ----prep_ens, include=FALSE--------------------------------------------------
-hub_path <- file.path(local_path, "../hub-config")
+hub_path <- file.path(local_path, "hub-config")
 hub_con <- connect_hub(hub_path)
 
 ## ----load_data, include=FALSE--------------------------------------------------
