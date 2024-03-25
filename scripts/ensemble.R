@@ -1,8 +1,8 @@
 ## ensemble.R customized for rsv-forecast-hub, split from rsv-forecast-hub_data
 
 local_path <- paste0(dirname(here::here()))
-#dir_path <- file.path(local_path, "rsv-forecast-hub-kjsato/")
-#data_path <- file.path(local_path, "rsv-forecast-hub-kjsato/")
+dir_path <- file.path(local_path, "rsv-forecast-hub/")
+data_path <- file.path(local_path, "rsv-forecast-hub/")
 print(local_path)
 dir_path <- local_path
 data_path <- local_path
@@ -18,6 +18,12 @@ library(dplyr)
 library(purrr)
 library(jsonlite)
 
+tasks_json_path <- file.path(dir_path, "../../hub-config/tasks.json")
+if (file.exists(tasks_json_path)) {
+  print("tasks.json exists.")
+} else {
+  print("tasks.json does not exist.")
+}
 ## ----setup_specifics, include=FALSE---------------------------------------------------
 print(file.path(local_path, "../../hub-config/tasks.json"))
 print(getwd())
