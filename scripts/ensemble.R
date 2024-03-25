@@ -4,8 +4,8 @@ local_path <- paste0(dirname(here::here()))
 dir_path <- file.path(local_path, "rsv-forecast-hub/")
 data_path <- file.path(local_path, "rsv-forecast-hub/")
 print(local_path)
-dir_path <- local_path
-data_path <- local_path
+#dir_path <- local_path
+#data_path <- local_path
 print(dir_path)
 
 ## ----lib-ens, include=FALSE---------------------------------------------------
@@ -19,6 +19,12 @@ library(purrr)
 library(jsonlite)
 
 tasks_json_path <- file.path(dir_path, "../../hub-config/tasks.json")
+if (file.exists(tasks_json_path)) {
+  print("tasks.json exists.")
+} else {
+  print("tasks.json does not exist.")
+}
+tasks_json_path <- file.path(dir_path, "hub-config/tasks.json")
 if (file.exists(tasks_json_path)) {
   print("tasks.json exists.")
 } else {
