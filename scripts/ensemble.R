@@ -18,30 +18,23 @@ library(dplyr)
 library(purrr)
 library(jsonlite)
 
-tasks_json_path <- file.path(dir_path, "../../hub-config/tasks.json")
-if (file.exists(tasks_json_path)) {
-  print("tasks.json exists.")
-} else {
-  print("tasks.json does not exist.")
-}
-tasks_json_path <- file.path(dir_path, "hub-config/tasks.json")
-if (file.exists(tasks_json_path)) {
-  print("tasks.json exists.")
-} else {
-  print("tasks.json does not exist.")
-}
+#tasks_json_path <- file.path(dir_path, "hub-config/tasks.json")
+#if (file.exists(tasks_json_path)) {
+#  print("tasks.json exists.")
+#} else {
+#  print("tasks.json does not exist.")
+#}
 ## ----setup_specifics, include=FALSE---------------------------------------------------
-print(file.path(local_path, "../../hub-config/tasks.json"))
-print(getwd())
-dates_archive <- unlist(jsonlite::read_json(file.path("../../hub-config/tasks.json"))$rounds[[1]]$model_tasks[[1]]$task_ids$origin_date$optional)
+
+dates_archive <- unlist(jsonlite::read_json(file.path(dir_path, "hub-config/tasks.json"))$rounds[[1]]$model_tasks[[1]]$task_ids$origin_date$optional)
 dates_archive <- dates_archive[as.Date(dates_archive) <= Sys.Date()]
 
 curr_origin_date <- as.Date(max(dates_archive, na.rm = TRUE))
 
 ## ----prep_ens, include=FALSE--------------------------------------------------
 
-hub_path <- file.path("../../hub-config")
-print(hub_path)
+hub_path <- file.path(dir_path, "hub-config")
+
 hub_con <- connect_hub(hub_path)
 
 ## ----load_data, include=FALSE--------------------------------------------------
