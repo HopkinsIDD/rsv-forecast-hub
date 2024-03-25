@@ -97,7 +97,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add .
             git commit -m "Upload new files to RSV data repo"
-          #  git push
+            git push
             echo "RSV data uploaded";
           else
             echo "no upload";
