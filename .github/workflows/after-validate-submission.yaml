@@ -71,11 +71,25 @@ jobs:
           cd ./scripts
           Rscript ensemble.R
 
+      - name: Commit and push new files to root repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add model-output/hub-ensemble/*
+            git commit -m "Upload new files to root repo"
+            git push
+            echo "Data for hub-ensemble uploaded to root repo";
+          else
+            echo "no upload for root repo";
+          fi
+        shell: bash
+        
       - name: Checkout and push to another repository
         uses: actions/checkout@v2
         with:
-          #repository: HopkinsIDD/rsv-forecast-hub_data
-          repository: kjsato/rsv-forecast-hub_data
+          #repository: kjsato/rsv-forecast-hub_data
+          repository: HopkinsIDD/rsv-forecast-hub_data
           token: ${{ secrets.KJ3_PATC }}
           path: ./rsv-forecast-hub_data
           fetch-depth: 2
@@ -97,7 +111,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add .
             git commit -m "Upload new files to RSV data repo"
-          #  git push
+            git push
             echo "RSV data uploaded";
           else
             echo "no upload";
