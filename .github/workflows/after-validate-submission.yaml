@@ -26,7 +26,9 @@ jobs:
           install-r: false
           use-public-rspm: true
       - name: Install system dependencies
-        run: sudo apt-get install -y libcurl4-openssl-dev
+        run:|
+           sudo apt-get update
+           sudo apt-get install -y libcurl4-openssl-dev
       - name: Cache R packages
         uses: actions/cache@v2
         with:
