@@ -1,4 +1,4 @@
-name: Test Token
+name: Test Token on accessing data 
 
 on: 
   workflow_dispatch:
@@ -11,6 +11,7 @@ jobs:
       - name: Checkout repository with KJ3_PATC token
         uses: actions/checkout@v2
         with:
+          #repository: kjsato/rsv-forecast-hub_data
           repository: HopkinsIDD/rsv-forecast-hub_data
           token: ${{ secrets.KJ3_PATC }}
           path: ./rsv-forecast-hub_data
