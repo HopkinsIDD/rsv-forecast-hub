@@ -44,6 +44,7 @@ jobs:
           cd ./rsv-forecast-hub_data
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull origin main
           if [ -n "$(git status --porcelain)" ]; then
             git add .
             git commit -m "Upload new files to RSV data repo"
