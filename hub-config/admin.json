@@ -9,7 +9,7 @@
     "repository": {
         "host": "github",
         "owner": "kjsato",
-        "name": "rsv-forecast-hub",
+        "name": "rsv-forecast-hub"
     },
     "file_format": ["csv", "parquet"],
     "timezone": "US/Eastern"
