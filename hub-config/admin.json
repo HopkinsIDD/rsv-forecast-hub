@@ -1,5 +1,5 @@
 {
-    "schema_version": "https://raw.githubusercontent.com/kjsato/schemas/br-v3.0.0/admin-schema.json",
+    "schema_version": "https://raw.githubusercontent.com/kjsato/schemas/br-v3.0.0/v3.0.0/admin-schema.json",
     "name": "US RSV Forecast Hub",
     "maintainer": "Johns Hopkins University, Infectious Disease Dynamics Group",
     "contact": {
