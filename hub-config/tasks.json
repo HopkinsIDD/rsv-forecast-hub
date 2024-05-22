@@ -2,6 +2,7 @@
     "schema_version": "https://raw.githubusercontent.com/kjsato/schemas/br-v3.0.0/v3.0.0/tasks-schema.json",
     "rounds": [
 	{
+            "round_name": "retrospective round",
             "round_id_from_variable": true,
             "round_id": "origin_date",
             "model_tasks": [
