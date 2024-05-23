@@ -1,0 +1,5 @@
+schema_version: "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json"
+team_name: "Data University"
+team_abbr: "DU"
+model_name: "test"
+model_abbr: "test"
