@@ -67,7 +67,7 @@ jobs:
            Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubEnsembles")'
       - name: Install hubData
         run: |
-           Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubData")'
+           Rscript -e 'remotes::install_github("kjsato/hubData@handle-samples", upgrade = "never")'
       - name: Run R script
         run: |
           cd ./scripts
