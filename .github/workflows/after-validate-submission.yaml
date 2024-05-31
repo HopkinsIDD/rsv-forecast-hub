@@ -25,6 +25,9 @@ jobs:
         with:
           install-r: false
           use-public-rspm: true
+      - name: Get list of changed files
+        id: files
+        uses: lots0logs/gh-action-get-changed-files@2.1.4
       - name: Install system dependencies
         run: |
            sudo apt-get update
@@ -68,10 +71,21 @@ jobs:
       - name: Install hubData
         run: |
            Rscript -e 'remotes::install_github("kjsato/hubData@handle-samples", upgrade = "never")'
+      - name: Check if RETRO files are present
+        id: check_files
+        run: |
+          echo "::set-output name=retro::$(echo '${{ steps.files.outputs.all }}' | grep 'model-output' | grep -c '.*-RETRO.*\.\(csv\|parquet\)')"
+          echo "::set-output name=conventional::$(echo '${{ steps.files.outputs.all }}' | grep -c -v '.*-RETRO.*\.\(csv\|parquet\)')"
       - name: Run R script
         run: |
           cd ./scripts
           Rscript ensemble.R
+        if: steps.check_files.outputs.conventional != '0'
+      - name: Run retro_ensemble.R
+        run: |
+          cd ./scripts
+          Rscript retro_ensemble.R
+        if: steps.check_files.outputs.retro != '0'
 
       - name: Commit and push new files to root repository
         run: |
