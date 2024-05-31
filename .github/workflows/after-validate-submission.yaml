@@ -84,7 +84,9 @@ jobs:
       - name: Run retro_ensemble.R
         run: |
           cd ./scripts
-          Rscript retro_ensemble.R
+          for file in $(echo '${{ steps.files.outputs.all }}' | grep 'model-output' | grep '.*-RETRO.*\.\(csv\|parquet\)'); do
+            Rscript retro_ensemble.R $file
+          done
         if: steps.check_files.outputs.retro != '0'
 
       - name: Commit and push new files to root repository
