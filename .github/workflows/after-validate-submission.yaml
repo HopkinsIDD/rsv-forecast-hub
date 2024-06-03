@@ -29,7 +29,7 @@ jobs:
         id: files
         uses: lots0logs/gh-action-get-changed-files@2.1.4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+           token: ${{ secrets.GITHUB_TOKEN }}
 - name: Install system dependencies
         run: |
            sudo apt-get update
