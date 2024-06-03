@@ -40,6 +40,9 @@ jobs:
       - name: Install hubAdmin from specific branch
         run: |
           Rscript -e 'remotes::install_github("kjsato/hubAdmin@feature/sample-support", upgrade = "never")'
+      - name: Install hubData from specific branch
+        run: |
+          Rscript -e 'remotes::install_github("kjsato/hubData@feature/handle-samples", upgrade = "never")'
       - name: Install HubValidations
         run: |
           remotes::install_github("kjsato/hubValidations@patch4conversion_origin_date", upgrade = "never")
