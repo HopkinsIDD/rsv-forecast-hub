@@ -72,7 +72,7 @@ jobs:
            Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubEnsembles")'
       - name: Install hubData
         run: |
-           Rscript -e 'remotes::install_github("kjsato/hubData@handle-samples", upgrade = "never")'
+           Rscript -e 'remotes::install_github("kjsato/hubData@feature/handle-samples", upgrade = "never")'
       - name: Check if RETRO files are present
         id: check_files
         run: |
