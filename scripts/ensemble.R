@@ -1,11 +1,11 @@
 ## ensemble.R customized for rsv-forecast-hub, split from rsv-forecast-hub_data
 
 local_path <- paste0(dirname(here::here()))
-dir_path <- file.path(local_path, "rsv-forecast-hub-kjsato/")
-data_path <- file.path(local_path, "rsv-forecast-hub-kjsato/")
-print(local_path)
-#dir_path <- local_path
-#data_path <- local_path
+#dir_path <- file.path(local_path, "rsv-forecast-hub-kjsato/")
+#data_path <- file.path(local_path, "rsv-forecast-hub-kjsato/")
+#print(local_path)
+dir_path <- local_path
+data_path <- local_path
 print(dir_path)
 
 ## ----lib-ens, include=FALSE---------------------------------------------------
