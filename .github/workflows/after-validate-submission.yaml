@@ -32,7 +32,7 @@ jobs:
            token: ${{ secrets.GITHUB_TOKEN }}
            filters: |
              all:
-               - '*'
+               - '**'
       - name: Print changed files
         run: |
           echo 'Changed files: ${{ steps.changes.outputs.all_files }}'
