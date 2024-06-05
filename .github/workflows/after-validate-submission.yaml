@@ -92,7 +92,7 @@ jobs:
       - name: Run retro_ensemble.R
         run: |
           cd ./scripts
-          for file in $(echo '${{ steps.files.outputs.all }}' | grep 'model-output' | grep '.*-RETRO.*\.\(csv\|parquet\)'); do
+          for file in $(echo '${{ steps.changes.outputs.all_files }}' | grep 'model-output' | grep '.*-RETRO.*\.\(csv\|parquet\)'); do
             Rscript retro_ensemble.R $file
           done
           if: env.retro != '0'
