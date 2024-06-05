@@ -27,7 +27,7 @@ jobs:
           use-public-rspm: true
       - name: Get list of changed files
         id: files
-        uses: lots0logs/gh-action-get-changed-files@2.1.4
+        uses: jkroepke/changed-files@v1.2.0
         with:
            token: ${{ secrets.GITHUB_TOKEN }}
       - name: Print changed files
