@@ -35,7 +35,7 @@ jobs:
                - '*'
       - name: Print changed files
         run: |
-          echo 'Changed files: ${{ steps.changes.outputs.all }}'
+          echo 'Changed files: ${{ steps.changes.outputs.all_files }}'
       - name: Install system dependencies
         run: |
           sudo apt-get update
@@ -82,8 +82,8 @@ jobs:
       - name: Check if RETRO files are present
         id: check_files
         run: |
-          echo 'retro='$(echo '${{ steps.files.outputs.all }}' | grep 'model-output' | grep -c '.*-RETRO.*\.\(csv\|parquet\)') >> $GITHUB_ENV
-          echo 'conventional='$(echo '${{ steps.files.outputs.all }}' | grep -c -v '.*-RETRO.*\.\(csv\|parquet\)') >> $GITHUB_ENV
+          echo 'retro='$(echo '${{ steps.changes.outputs.all_files }}' | grep 'model-output' | grep -c '.*-RETRO.*\.\(csv\|parquet\)') >> $GITHUB_ENV
+          echo 'conventional='$(echo '${{ steps.changes.outputs.all_files }}' | grep -c -v '.*-RETRO.*\.\(csv\|parquet\)') >> $GITHUB_ENV
       - name: Run R script
         run: |
           cd ./scripts
