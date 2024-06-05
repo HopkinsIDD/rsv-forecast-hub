@@ -30,6 +30,8 @@ jobs:
         uses: lots0logs/gh-action-get-changed-files@2.1.4
         with:
            token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Print changed files
+        run: echo "Changed files: ${{ steps.files.outputs.all }}"
       - name: Install system dependencies
         run: |
            sudo apt-get update
