@@ -26,13 +26,16 @@ jobs:
           install-r: false
           use-public-rspm: true
       - name: Get list of changed files
-        id: files
-        uses: jitterbit/get-changed-files@v1
+        id: changes
+        uses: dorny/paths-filter@v3
         with:
            token: ${{ secrets.GITHUB_TOKEN }}
+           filters: |
+             all:
+               - '*'
       - name: Print changed files
         run: |
-          echo 'Changed files: ${{ steps.files.outputs.all }}'
+          echo 'Changed files: ${{ steps.changes.outputs.all }}'
       - name: Install system dependencies
         run: |
           sudo apt-get update
