@@ -31,7 +31,7 @@ jobs:
         with:
            token: ${{ secrets.GITHUB_TOKEN }}
       - name: Print changed files
-        run: echo "Changed files: ${{ steps.files.outputs.all }}"
+        run: echo 'Changed files: ${{ steps.files.outputs.all }}'
       - name: Install system dependencies
         run: |
            sudo apt-get update
