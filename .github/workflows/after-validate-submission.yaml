@@ -85,14 +85,14 @@ jobs:
         run: |
           cd ./scripts
           Rscript ensemble.R
-        if: env.conventional != '0'
+        if: ${{ env.conventional != '0' }}
       - name: Run retro_ensemble.R
         run: |
           cd ./scripts
           for file in $(echo '${{ steps.changed-files.outputs.added_files }}' | grep 'model-output' | grep '.*-RETRO.*\.\(csv\|parquet\)'); do
             Rscript retro_ensemble.R $file
           done
-          if: env.retro != '0'
+          if: ${{ env.retro != '0' }}
 
       - name: Commit and push new files to root repository
         run: |
