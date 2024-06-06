@@ -92,7 +92,7 @@ jobs:
           for file in $(echo '${{ steps.changed-files.outputs.added_files }}' | grep 'model-output' | grep '.*-RETRO.*\.\(csv\|parquet\)'); do
             Rscript retro_ensemble.R $file
           done
-          if: ${{ env.retro != '0' }}
+        if: ${{ env.retro != '0' }}
 
       - name: Commit and push new files to root repository
         run: |
