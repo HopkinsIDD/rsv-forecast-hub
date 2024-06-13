@@ -100,7 +100,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if [ -n "$(git status --porcelain)" ]; then
             git add model-output/hub-ensemble/*
-            git commit -m "Upload new files to root repo"
+            git commit -m "Upload new files to RSV data repo by ${GITHUB_ACTOR} in #${{ github.event.pull_request.number }}"
             git push
             echo "Data for hub-ensemble uploaded to root repo";
           else
@@ -134,7 +134,7 @@ jobs:
           git pull origin main
           if [ -n "$(git status --porcelain)" ]; then
             git add .
-            git commit -m "Upload new files to RSV data repo"
+            git commit -m "Upload new files to RSV data repo by ${GITHUB_ACTOR} in #${{ github.event.pull_request.number }}"
             git push
             echo "RSV data uploaded";
           else
