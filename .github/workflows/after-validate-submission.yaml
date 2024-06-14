@@ -25,11 +25,6 @@ jobs:
         with:
           install-r: false
           use-public-rspm: true
-      - name: Get list of changed files
-        id: files
-        uses: lots0logs/gh-action-get-changed-files@2.1.4
-        with:
-           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install system dependencies
         run: |
            sudo apt-get update
@@ -66,30 +61,17 @@ jobs:
            Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubVis")'
       - name: Install hubUtils
         run: |
-           Rscript -e 'remotes::install_github("kjsato/hubUtils@enhancement/v3-utils", upgrade = "never")'
+           Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubUtils")'
       - name: Install hubEnsembles
         run: |
            Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubEnsembles")'
       - name: Install hubData
         run: |
-          Rscript -e 'remotes::install_github("kjsato/hubData@feature/handle-samples", upgrade = "never")'
-      - name: Check if RETRO files are present
-        id: check_files
-        run: |
-          echo 'retro='$(echo '${{ steps.files.outputs.all }}' | grep 'model-output' | grep -c '.*-RETRO.*\.\(csv\|parquet\)') >> $GITHUB_ENV
-          echo 'conventional='$(echo '${{ steps.files.outputs.all }}' | grep -c -v '.*-RETRO.*\.\(csv\|parquet\)') >> $GITHUB_ENV
+           Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubData")'
       - name: Run R script
         run: |
           cd ./scripts
           Rscript ensemble.R
-        if: env.conventional != '0'
-      - name: Run retro_ensemble.R
-        run: |
-          cd ./scripts
-          for file in $(echo '${{ steps.files.outputs.all }}' | grep 'model-output' | grep '.*-RETRO.*\.\(csv\|parquet\)'); do
-            Rscript retro_ensemble.R $file
-          done
-          if: env.retro != '0'
 
       - name: Commit and push new files to root repository
         run: |
@@ -108,8 +90,8 @@ jobs:
       - name: Checkout and push to another repository
         uses: actions/checkout@v2
         with:
-          repository: kjsato/rsv-forecast-hub_data
-          #repository: HopkinsIDD/rsv-forecast-hub_data
+          #repository: kjsato/rsv-forecast-hub_data
+          repository: HopkinsIDD/rsv-forecast-hub_data
           token: ${{ secrets.KJ3_PATC }}
           path: ./rsv-forecast-hub_data
           fetch-depth: 2

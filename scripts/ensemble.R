@@ -1,11 +1,11 @@
 ## ensemble.R customized for rsv-forecast-hub, split from rsv-forecast-hub_data
 
 local_path <- paste0(dirname(here::here()))
-#dir_path <- file.path(local_path, "rsv-forecast-hub-kjsato/")
-#data_path <- file.path(local_path, "rsv-forecast-hub-kjsato/")
-#print(local_path)
-dir_path <- local_path
-data_path <- local_path
+dir_path <- file.path(local_path, "rsv-forecast-hub/")
+data_path <- file.path(local_path, "rsv-forecast-hub/")
+print(local_path)
+#dir_path <- local_path
+#data_path <- local_path
 print(dir_path)
 
 ## ----lib-ens, include=FALSE---------------------------------------------------
@@ -29,8 +29,8 @@ library(jsonlite)
 dates_archive <- unlist(jsonlite::read_json(file.path(dir_path, "hub-config/tasks.json"))$rounds[[1]]$model_tasks[[1]]$task_ids$origin_date$optional)
 dates_archive <- dates_archive[as.Date(dates_archive) <= Sys.Date()]
 
-#curr_origin_date <- as.Date(max(dates_archive, na.rm = TRUE))
-curr_origin_date <- as.Date("2024-03-24")
+curr_origin_date <- as.Date(max(dates_archive, na.rm = TRUE))
+#curr_origin_date <- as.Date("2024-03-17")
 
 ## ----prep_ens, include=FALSE--------------------------------------------------
 
