@@ -25,10 +25,18 @@ jobs:
         with:
           install-r: false
           use-public-rspm: true
+      - name: Get list of changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Print changed files
+        run: |
+          echo 'Changed files: ${{ steps.changed-files.outputs.added_files }}'
       - name: Install system dependencies
         run: |
-           sudo apt-get update
-           sudo apt-get install -y libcurl4-openssl-dev
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev
       - name: Cache R packages
         uses: actions/cache@v2
         with:
@@ -67,11 +75,24 @@ jobs:
            Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubEnsembles")'
       - name: Install hubData
         run: |
-           Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubData")'
+          Rscript -e 'remotes::install_github("kjsato/hubData@feature/handle-samples", upgrade = "never")'
+      - name: Check if RETRO files are present
+        id: check_files
+        run: |
+          echo 'retro='$(echo '${{ steps.changed-files.outputs.added_files }}' | grep 'model-output' | grep -c '.*-RETRO.*\.\(csv\|parquet\)') >> $GITHUB_ENV
+          echo 'conventional='$(echo '${{ steps.changed-files.outputs.added_files }}' | grep -c -v '.*-RETRO.*\.\(csv\|parquet\)') >> $GITHUB_ENV
       - name: Run R script
         run: |
           cd ./scripts
           Rscript ensemble.R
+        if: ${{ env.conventional != '0' }}
+      - name: Run retro_ensemble.R
+        run: |
+          cd ./scripts
+          for file in $(echo '${{ steps.changed-files.outputs.added_files }}' | grep 'model-output' | grep '.*-RETRO.*\.\(csv\|parquet\)'); do
+            Rscript retro_ensemble.R $file
+          done
+        if: ${{ env.retro != '0' }}
 
       - name: Commit and push new files to root repository
         run: |
@@ -79,7 +100,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if [ -n "$(git status --porcelain)" ]; then
             git add model-output/hub-ensemble/*
-            git commit -m "Upload new files to root repo"
+            git commit -m "Upload new files to RSV data repo by ${GITHUB_ACTOR} in #${{ github.event.pull_request.number }}"
             git push
             echo "Data for hub-ensemble uploaded to root repo";
           else
@@ -90,8 +111,8 @@ jobs:
       - name: Checkout and push to another repository
         uses: actions/checkout@v2
         with:
-          #repository: kjsato/rsv-forecast-hub_data
           repository: HopkinsIDD/rsv-forecast-hub_data
+          #repository: kjsato/rsv-forecast-hub_data
           token: ${{ secrets.KJ3_PATC }}
           path: ./rsv-forecast-hub_data
           fetch-depth: 2
@@ -113,7 +134,7 @@ jobs:
           git pull origin main
           if [ -n "$(git status --porcelain)" ]; then
             git add .
-            git commit -m "Upload new files to RSV data repo"
+            git commit -m "Upload new files to RSV data repo by ${GITHUB_ACTOR} in #${{ github.event.pull_request.number }}"
             git push
             echo "RSV data uploaded";
           else
