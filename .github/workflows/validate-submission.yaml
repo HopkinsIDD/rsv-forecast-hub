@@ -44,7 +44,6 @@ jobs:
       - name: Install hubAdmin from specific branch
         run: |
           Rscript -e 'remotes::install_github("kjsato/hubAdmin@feature/sample-support", upgrade = "never")'
-
       - name: Install HubValidations
         run: |
           #install.packages("remotes")
