@@ -60,5 +60,20 @@ jobs:
           )
           hubValidations::check_for_errors(v)
         shell: Rscript {0}
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --quiet || echo "changes_detected=true" >> $GITHUB_ENV
+
+      - name: Commit and push changes
+        if: env.changes_detected == 'true'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "Automatically update files after validation"
+          git push origin HEAD:${{ github.head_ref }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
