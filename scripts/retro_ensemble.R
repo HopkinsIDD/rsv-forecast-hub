@@ -57,6 +57,13 @@ projection_data_all <- file_paths %>%
   })
 head(projection_data_all)
 
+# Check the format of 'origin_date' column
+print(unique(projection_data_all$origin_date))
+
+# Ensure 'origin_date' is in a standard date format
+projection_data_all <- projection_data_all %>%
+  mutate(origin_date = as.Date(origin_date, format = "%Y-%m-%d"))
+
 # Prepare data
 projection_data_all <- dplyr::mutate(projection_data_all,
                                      target_date = as.Date(origin_date) + (horizon * 7) - 1)
