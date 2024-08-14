@@ -67,16 +67,16 @@ jobs:
       - name: Install hubViz
         run: |
            Rscript -e 'install.packages("remotes")'
-           Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubVis")'
+           Rscript -e 'remotes::install_github("hubverse-org/hubVis")'
       - name: Install hubUtils
         run: |
-           Rscript -e 'remotes::install_github("kjsato/hubUtils@enhancement/v3-utils", upgrade = "never")'
+           Rscript -e 'remotes::install_github("kjsato/hubUtils@main-mr_schema", upgrade = "never")'
       - name: Install hubEnsembles
         run: |
-           Rscript -e 'remotes::install_github("Infectious-Disease-Modeling-Hubs/hubEnsembles")'
+           Rscript -e 'remotes::install_github("hubverse-org/hubEnsembles")'
       - name: Install hubData
         run: |
-          Rscript -e 'remotes::install_github("kjsato/hubData@feature/handle-samples", upgrade = "never")'
+          Rscript -e 'remotes::install_github("kjsato/hubData@main-mr_schema", upgrade = "never")'
       - name: Check if RETRO files are present
         id: check_files
         run: |
