@@ -37,16 +37,16 @@ jobs:
       - name: Install hubUtils from specific branch
         run: |
           Rscript -e 'install.packages("remotes")'
-          Rscript -e 'remotes::install_github("kjsato/hubUtils@enhancement/v3-utils", upgrade = "never")'
+          Rscript -e 'remotes::install_github("kjsato/hubUtils@main-mr_schema", upgrade = "never")'
       - name: Install hubData from specific branch
         run: |
-          Rscript -e 'remotes::install_github("kjsato/hubData@feature/handle-samples", upgrade = "never")'
+          Rscript -e 'remotes::install_github("kjsato/hubData@main-mr_schema", upgrade = "never")'
       - name: Install hubAdmin from specific branch
         run: |
-          Rscript -e 'remotes::install_github("kjsato/hubAdmin@feature/sample-support", upgrade = "never")'
+          Rscript -e 'remotes::install_github("kjsato/hubAdmin@main-mr_schema", upgrade = "never")'
       - name: Install HubValidations
         run: |
-          Rscript -e 'remotes::install_github("kjsato/hubValidations@patch4conversion_origin_date", upgrade = "never")'
+          Rscript -e 'remotes::install_github("kjsato/hubValidations@main-mr_schema-conv_origin_date", upgrade = "never")'
 
       - name: Run validations
         env:
