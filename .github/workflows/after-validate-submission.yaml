@@ -81,7 +81,7 @@ jobs:
         id: check_files
         run: |
           echo 'retro='$(echo '${{ steps.changed-files.outputs.added_files }} ${{ steps.changed-files.outputs.modified_files }}' | tr ' ' '\n' | grep 'model-output' | grep '.*-RETRO.*\.\(csv\|parquet\)'| grep -v '\.github/') >> $GITHUB_ENV
-          echo 'conventional='$(echo '${{ steps.changed-files.outputs.added_files }} ${{ steps.changed-files.outputs.modified_files }}' | tr ' ' '\n' | grep -v '\.github/' | grep -c -v '.*-RETRO.*\.\(csv\|parquet\)') >> $GITHUB_ENV
+          echo 'conventional='$(echo '${{ steps.changed-files.outputs.added_files }} ${{ steps.changed-files.outputs.modified_files }}' | tr ' ' '\n' | grep -v '\.github/' | grep -v '.*-RETRO.*\.\(csv\|parquet\)' | grep -c .) >> $GITHUB_ENV
       - name: Run R script
         run: |
           cd ./scripts
@@ -102,7 +102,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if [ -n "$(git status --porcelain)" ]; then
             git add model-output/hub-ensemble/*
-            git commit -m "Upload new files to RSV data repo by ${GITHUB_ACTOR} in #${{ github.event.pull_request.number }}"
+            git commit -m "Upload new files to RSV data repo by ${{ github.event.pull_request.user.login }} in #${{ github.event.pull_request.number }}"
             git push
             echo "Data for hub-ensemble uploaded to root repo";
           else
@@ -136,7 +136,7 @@ jobs:
           git pull origin main
           if [ -n "$(git status --porcelain)" ]; then
             git add .
-            git commit -m "Upload new files to RSV data repo by ${GITHUB_ACTOR} in #${{ github.event.pull_request.number }}"
+            git commit -m "Upload new files to RSV data repo by ${{ github.event.pull_request.user.login }} in #${{ github.event.pull_request.number }}"
             git push
             echo "RSV data uploaded";
           else
