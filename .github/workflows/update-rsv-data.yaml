@@ -1,0 +1,39 @@
+name: Update RSV data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * 5'
+
+jobs:
+  update-rsv-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Python
+        run: |
+         python auxiliary-data/rsv/extract_rsv.py
+
+      - name: Commit
+        run: |
+          git config user.name Github-Actions
+          git config user.email "<>"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Update target data $(date)"
+            git push
+            echo "Target data updated";
+          else
+              echo "no updates";
+          fi
