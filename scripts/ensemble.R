@@ -27,10 +27,15 @@ library(jsonlite)
 ## ----setup_specifics, include=FALSE---------------------------------------------------
 
 dates_archive <- unlist(jsonlite::read_json(file.path(dir_path, "hub-config/tasks.json"))$rounds[[1]]$model_tasks[[1]]$task_ids$origin_date$optional)
-dates_archive <- dates_archive[as.Date(dates_archive) <= Sys.Date()]
+valid_dates <- dates_archive[as.Date(dates_archive) <= Sys.Date()]
 
-curr_origin_date <- as.Date(max(dates_archive, na.rm = TRUE))
-#curr_origin_date <- as.Date("2024-03-24")
+if (length(valid_dates) == 0) {
+    curr_origin_date <- as.Date(min(dates_archive, na.rm = TRUE)) # temporary until starting date has passed
+} else {
+    curr_origin_date <- as.Date(max(valid_dates, na.rm = TRUE))
+}
+#curr_origin_date <- as.Date(max(dates_archive, na.rm = TRUE))
+#curr_origin_date <- as.Date("2024-10-13")
 
 ## ----prep_ens, include=FALSE--------------------------------------------------
 
