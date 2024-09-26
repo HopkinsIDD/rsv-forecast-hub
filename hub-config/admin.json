@@ -3,12 +3,12 @@
     "name": "US RSV Forecast Hub",
     "maintainer": "Johns Hopkins University, Infectious Disease Dynamics Group",
     "contact": {
-        "name": "K. Sato",
-        "email": "ksato8@jh.edu"
+        "name": "S. Truelove",
+        "email": "shauntruelove@jhu.edu"
     },
     "repository": {
         "host": "github",
-        "owner": "kjsato",
+        "owner": "shauntruelove",
         "name": "rsv-forecast-hub"
     },
     "file_format": ["csv", "parquet"],
