@@ -40,7 +40,7 @@ Participating teams are asked to provide **quantile forecasts of the weekly inci
   - Weekly state-specific and national RSV hospitalizations among individuals <1 yr, 1-4, 5-64, and 65+ (most of the RSV burden on hospitalizations comes from the 0-1 and 65+ age groups)
 
 ### Timeline
-The RSV Forecast Hub challenge period will begin October 29, 2024 and run through May, 2025. Participating teams are asked to submit weekly forecasts by 11:59 PM Eastern Time each Tuesday.
+The RSV Forecast Hub challenge period will begin October 22, 2024 and run through May, 2025. Participating teams are asked to submit weekly forecasts by 11:59 PM Eastern Time each Tuesday.
 
 ## Target Data
 The [target-data/](https://github.com/HopkinsIDD/rsv-forecast-hub/tree/main/target-data) folder contains the RSV hospitalization data (also called "truth data") standardized from the [Weekly Rates of Laboratory-Confirmed RSV Hospitalizations from the RSV-NET Surveillance System](https://data.cdc.gov/Public-Health-Surveillance/Weekly-Rates-of-Laboratory-Confirmed-RSV-Hospitali/29hc-w46k/about_data).
