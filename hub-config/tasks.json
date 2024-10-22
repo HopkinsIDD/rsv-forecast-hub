@@ -271,7 +271,6 @@
                 ]
             }
 
-
 		],
        	"submissions_due": {
             "relative_to": "origin_date",
