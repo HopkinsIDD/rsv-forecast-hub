@@ -275,8 +275,8 @@
 		],
        	"submissions_due": {
             "relative_to": "origin_date",
-            "start": -6,
-            "end": 0
+            "start": -2,
+            "end": 2
         }
     }
     ]
