@@ -91,7 +91,7 @@ Each row in the file is either a point or quantile forecast for a location on a 
 
 | Column Name | Accepted Format |
 | --- | --- |
-| ```origin_date``` | character, date (datetime not accepted) |
+| ```origin_date``` | date (datetime not accepted) |
 | ```target``` | character |
 | ```horizon``` | numeric, integer |
 | ```location``` | character |
