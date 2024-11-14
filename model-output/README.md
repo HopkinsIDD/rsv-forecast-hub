@@ -97,7 +97,7 @@ Each row in the file is either a point or quantile forecast for a location on a 
 | ```location``` | character |
 | ```age_group``` | character |
 | ```output_type``` | character |
-| ```output_type_id``` | numeric, character, logical (if all ```NA```) |
+| ```output_type_id``` | numeric |
 | ```value``` | numeric |
 
 
