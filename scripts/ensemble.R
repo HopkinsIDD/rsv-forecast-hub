@@ -34,8 +34,8 @@ if (length(valid_dates) == 0) {
 } else {
     curr_origin_date <- as.Date(max(valid_dates, na.rm = TRUE))
 }
-#curr_origin_date <- as.Date(max(dates_archive, na.rm = TRUE))
-#curr_origin_date <- as.Date("2024-10-13")
+
+#curr_origin_date <- as.Date("2024-11-17")
 
 ## ----prep_ens, include=FALSE--------------------------------------------------
 
