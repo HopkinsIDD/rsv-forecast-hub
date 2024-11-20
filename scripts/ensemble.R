@@ -87,15 +87,19 @@ projection_data_all <- as_model_out_tbl(projection_data_all)
 #head(projection_data_all)
 
 round <- projection_data_all %>%
-  dplyr::filter(origin_date == as.Date(curr_origin_date)) %>%
+  dplyr::filter(origin_date == as.Date(curr_origin_date),
+                model_id != "hub-ensemble") %>%
   dplyr::collect()
 
 
 ## ----call-data-end, include=FALSE --------------------------------------------------
 
 # Generate Ensembles
-#source(file.path(dir_path, "report", "ensemble.R"))
-round_ens <- hubEnsembles::simple_ensemble(round)
+round_ens <- hubEnsembles::simple_ensemble(round %>%
+                                             dplyr::filter(model_id != "hub-baseline",
+                                                           horizon %in% 0:4)) %>%
+  dplyr::mutate(target_end_date = origin_date + horizon*7 - 1) %>%
+  dplyr::select(-target_date)
 dir.create(file.path(dir_path, "model-output", "hub-ensemble"), showWarnings = FALSE, recursive = TRUE)
 arrow::write_parquet(round_ens, file.path(dir_path, "model-output", "hub-ensemble", paste0(curr_origin_date, "-hub-ensemble.parquet")))
 
