@@ -63,7 +63,7 @@ projection_data_all <- file_paths %>%
     read_fun <- ifelse(grepl("\\.parquet$", .x), arrow::read_parquet, readr::read_csv)
 
     # read data
-    data <- read_fun(.x, stringsAsFactors = FALSE)
+    data <- read_fun(.x)
 
     # check if 'origin_date' column exists
     if (!"origin_date" %in% names(data)) {
