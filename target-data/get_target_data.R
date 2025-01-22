@@ -36,6 +36,8 @@ census_pop <- dplyr::mutate(
   dplyr::filter(SEX == 0) %>%
   dplyr::select(fips, age = AGE, contains("POPEST")) %>%
   dplyr::mutate(POPEST2023_CIV = POPEST2022_CIV) %>%
+  dplyr::mutate(POPEST2024_CIV = POPEST2022_CIV) %>%
+  dplyr::mutate(POPEST2025_CIV = POPEST2022_CIV) %>%
   tidyr::pivot_longer(cols = contains("POPEST"), names_to = "year") %>%
   dplyr::mutate(year = as.numeric(gsub("[[:alpha:]]|_", "", year)))
 
@@ -62,7 +64,7 @@ census_agegroup <- lapply(unique(age2st_age), function(age_grp) {
 
 # RSV-Net
 df <- arrow::read_parquet(
-  "auxiliary-data/rsv/rsv-net/weekly_rates_lab_confirmed_rsv_hosp.parquet")
+  tail(sort(dir("auxiliary-data/rsv/rsv-net/", full.names = TRUE)), 1))
 
 # Standardize:
 # - Load relevant age groups
@@ -74,7 +76,8 @@ df <- arrow::read_parquet(
 # - Standardize column names (lower case, without space, dot)
 rsv <- df %>%
   dplyr::mutate(
-    date = as.Date(`Week ending date`, "%m/%d/%Y")) %>%
+    date = as.Date(`Week ending date`,
+                   tryFormats = c("%m/%d/%Y", "%Y-%m-%d"))) %>%
   dplyr::filter(
     Sex == "All" & Race == "All" &
       `Age Category` %in% c(
@@ -123,8 +126,11 @@ rsv_output <-
 rsv_past_season <- read.csv("https://raw.githubusercontent.com/midas-network/rsv-scenario-modeling-hub/f183e8a1a8d2387f02c2e007527af48226370d03/target-data/rsvnet_hospitalization.csv")
 rsv_past_season <- dplyr::filter(rsv_past_season, date < min(rsv_output$date))
 
+# Archive past files
+old_files <- dir("target-data/", full.names = TRUE, pattern = "rsvnet_hospitalization.csv")
+file.rename(old_files, gsub("target-data/", "target-data/archive", old_files))
+
 # Write output
 rsv_output <- rbind(rsv_output, rsv_past_season)
-write.csv(rsv_output, "target-data/rsvnet_hospitalization.csv",
+write.csv(rsv_output, paste0("target-data/", Sys.Date(), "_rsvnet_hospitalization.csv"),
           row.names = FALSE)
-

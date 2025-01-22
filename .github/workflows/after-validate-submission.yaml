@@ -13,18 +13,109 @@ jobs:
   copy-files-to-rsv-data-repo:
     runs-on: ubuntu-latest
     # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    env:
+        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     if: github.event.pull_request.merged == true
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 2
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          install-r: false
+          use-public-rspm: true
+      - name: Get list of changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Print changed files
+        run: |
+          echo 'Changed files: ${{ steps.changed-files.outputs.added_files }}'
+          echo 'Modified files: ${{ steps.changed-files.outputs.modified_files }}'
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev
+      - name: Cache R packages
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-r-${{ hashFiles('DESCRIPTION') }}
+          restore-keys: ${{ runner.os }}-r-
+      - name: Install gh package
+        run: Rscript -e 'install.packages("gh")'
+      - name: Install here package
+        run: Rscript -e 'install.packages("here")'
+      - name: Install readr package
+        run: Rscript -e 'install.packages("readr")'
+      - name: Install lubridate package
+        run: Rscript -e 'install.packages("lubridate")'
+      - name: Install ggridges package
+        run: Rscript -e 'install.packages("ggridges")'
+      - name: Install forcats package
+        run: Rscript -e 'install.packages("forcats")'
+      - name: Install arrow package
+        run: Rscript -e 'install.packages("arrow")'
+      - name: Install dplyr package
+        run: Rscript -e 'install.packages("dplyr")'
+      - name: Install jsonlite package
+        run: Rscript -e 'install.packages("jsonlite")'
+      - name: Install purrr package
+        run: Rscript -e 'install.packages("purrr")'
+      - name: Install hubViz
+        run: |
+           Rscript -e 'install.packages("remotes")'
+           Rscript -e 'remotes::install_github("hubverse-org/hubVis")'
+      - name: Install hubUtils
+        run: |
+           Rscript -e 'remotes::install_github("kjsato/hubUtils@main-mr_schema", upgrade = "never")'
+      - name: Install hubEnsembles
+        run: |
+           Rscript -e 'remotes::install_github("hubverse-org/hubEnsembles")'
+      - name: Install hubData
+        run: |
+          Rscript -e 'remotes::install_github("kjsato/hubData@main-mr_schema", upgrade = "never")'
+      - name: Check if RETRO files are present
+        id: check_files
+        run: |
+          echo 'retro='$(echo '${{ steps.changed-files.outputs.added_files }} ${{ steps.changed-files.outputs.modified_files }}' | tr ' ' '\n' | grep 'model-output' | grep '.*-RETRO.*\.\(csv\|parquet\)'| grep -v '\.github/') >> $GITHUB_ENV
+          echo 'conventional='$(echo '${{ steps.changed-files.outputs.added_files }} ${{ steps.changed-files.outputs.modified_files }}' | tr ' ' '\n' | grep -v '\.github/' | grep -c -v '.*-RETRO.*\.\(csv\|parquet\)') >> $GITHUB_ENV
+      - name: Run R script
+        run: |
+          cd ./scripts
+          Rscript ensemble.R
+        if: ${{ env.conventional != '0' }}
+      - name: Run retro_ensemble.R
+        run: |
+          cd ./scripts
+          for file in $(echo '${{ steps.changed-files.outputs.added_files }} ${{ steps.changed-files.outputs.modified_files }}' | tr ' ' '\n' | grep 'model-output' | grep '.*-RETRO.*\.\(csv\|parquet\)'| grep -v '\.github/'); do
+            echo "Processing file: $file"
+            Rscript retro_ensemble.R $file
+          done
+        if: ${{ env.retro != '0' }}
 
+      - name: Commit and push new files to root repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull origin main
+          if [ -n "$(git status --porcelain)" ]; then
+            git add model-output/hub-ensemble/*
+            git commit -m "Upload new files to RSV data repo by ${GITHUB_ACTOR} in #${{ github.event.pull_request.number }}"
+            git push
+            echo "Data for hub-ensemble uploaded to root repo";
+          else
+            echo "no upload for root repo";
+          fi
+        shell: bash
+        
       - name: Checkout and push to another repository
         uses: actions/checkout@v2
         with:
-          #repository: kjsato/rsv-forecast-hub_data
           repository: HopkinsIDD/rsv-forecast-hub_data
+          #repository: kjsato/rsv-forecast-hub_data
           token: ${{ secrets.KJ3_PATC }}
           path: ./rsv-forecast-hub_data
           fetch-depth: 2
@@ -38,15 +129,15 @@ jobs:
               cp $FILE ./rsv-forecast-hub_data/$FILE
             fi
           done
-          
       - name: Commit and push new files
         run: |
           cd ./rsv-forecast-hub_data
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull origin main
           if [ -n "$(git status --porcelain)" ]; then
             git add .
-            git commit -m "Upload new files to RSV data repo"
+            git commit -m "Upload new files to RSV data repo by ${GITHUB_ACTOR} in #${{ github.event.pull_request.number }}"
             git push
             echo "RSV data uploaded";
           else

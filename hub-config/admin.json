@@ -1,12 +1,16 @@
 {
-    "schema_version": "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json",
-    "name": "Simple Forecast Hub",
-    "maintainer": "Consortium of Infectious Disease Modeling Hubs",
+    "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.1/admin-schema.json",
+    "name": "US RSV Forecast Hub",
+    "maintainer": "Johns Hopkins University, Infectious Disease Dynamics Group",
     "contact": {
-        "name": "K. Sato",
-        "email": "ksato8@jh.edu"
+        "name": "S. Truelove",
+        "email": "shauntruelove@jhu.edu"
     },
-    "repository_url": "https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate",
+    "repository": {
+        "host": "github",
+        "owner": "shauntruelove",
+        "name": "rsv-forecast-hub"
+    },
     "file_format": ["csv", "parquet"],
     "timezone": "US/Eastern"
 }
