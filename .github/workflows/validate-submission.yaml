@@ -24,13 +24,7 @@ jobs:
         with:
           install-r: false
           use-public-rspm: true
-          
-      - name: Install packages
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          packages: |
-            any::remotes
-            
+                      
       - name: Install system dependencies
         run: |
           sudo apt-get update
@@ -44,6 +38,7 @@ jobs:
 
       - name: Install hubUtils from specific branch
         run: |
+          Rscript -e 'install.packages("remotes")'
           Rscript -e 'remotes::install_github("kjsato/hubUtils@main-mr_schema", upgrade = "never")'
       - name: Install hubData from specific branch
         run: |
