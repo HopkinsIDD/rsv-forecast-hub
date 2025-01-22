@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          R -e 'install.packages(c("lubridate", "dplyr", "tidyr", "arrow"))'
+          R -e 'install.packages(c("lubridate", "dplyr", "tidyr", "arrow","readr"))'
 
       - name: Update target data
         run: Rscript target-data/get_target_data.R
@@ -33,6 +33,7 @@ jobs:
           git config user.name Github-Actions
           git config user.email "<>"
           if [ -n "$(git status --porcelain)" ]; then
+            git pull
             git add .
             git commit -m "Update target data $(date)"
             git push
