@@ -34,8 +34,8 @@ if (length(valid_dates) == 0) {
 } else {
     curr_origin_date <- as.Date(max(valid_dates, na.rm = TRUE))
 }
-#curr_origin_date <- as.Date(max(dates_archive, na.rm = TRUE))
-#curr_origin_date <- as.Date("2024-10-13")
+
+#curr_origin_date <- as.Date("2024-11-17")
 
 ## ----prep_ens, include=FALSE--------------------------------------------------
 
@@ -63,7 +63,7 @@ projection_data_all <- file_paths %>%
     read_fun <- ifelse(grepl("\\.parquet$", .x), arrow::read_parquet, readr::read_csv)
 
     # read data
-    data <- read_fun(.x, stringsAsFactors = FALSE)
+    data <- read_fun(.x)
 
     # check if 'origin_date' column exists
     if (!"origin_date" %in% names(data)) {
@@ -87,15 +87,19 @@ projection_data_all <- as_model_out_tbl(projection_data_all)
 #head(projection_data_all)
 
 round <- projection_data_all %>%
-  dplyr::filter(origin_date == as.Date(curr_origin_date)) %>%
+  dplyr::filter(origin_date == as.Date(curr_origin_date),
+                model_id != "hub-ensemble") %>%
   dplyr::collect()
 
 
 ## ----call-data-end, include=FALSE --------------------------------------------------
 
 # Generate Ensembles
-#source(file.path(dir_path, "report", "ensemble.R"))
-round_ens <- hubEnsembles::simple_ensemble(round)
+round_ens <- hubEnsembles::simple_ensemble(round %>%
+                                             dplyr::filter(model_id != "hub-baseline",
+                                                           horizon %in% 0:4)) %>%
+  dplyr::mutate(target_end_date = origin_date + horizon*7 - 1) %>%
+  dplyr::select(-target_date)
 dir.create(file.path(dir_path, "model-output", "hub-ensemble"), showWarnings = FALSE, recursive = TRUE)
 arrow::write_parquet(round_ens, file.path(dir_path, "model-output", "hub-ensemble", paste0(curr_origin_date, "-hub-ensemble.parquet")))
 

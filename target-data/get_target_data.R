@@ -37,6 +37,7 @@ census_pop <- dplyr::mutate(
   dplyr::select(fips, age = AGE, contains("POPEST")) %>%
   dplyr::mutate(POPEST2023_CIV = POPEST2022_CIV) %>%
   dplyr::mutate(POPEST2024_CIV = POPEST2022_CIV) %>%
+  dplyr::mutate(POPEST2025_CIV = POPEST2022_CIV) %>%
   tidyr::pivot_longer(cols = contains("POPEST"), names_to = "year") %>%
   dplyr::mutate(year = as.numeric(gsub("[[:alpha:]]|_", "", year)))
 
@@ -133,4 +134,3 @@ file.rename(old_files, gsub("target-data/", "target-data/archive", old_files))
 rsv_output <- rbind(rsv_output, rsv_past_season)
 write.csv(rsv_output, paste0("target-data/", Sys.Date(), "_rsvnet_hospitalization.csv"),
           row.names = FALSE)
-
