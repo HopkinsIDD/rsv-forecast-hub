@@ -10,7 +10,7 @@ on:
 
 jobs:
   validate-submission:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
@@ -19,22 +19,21 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 2
+          
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
-        with:
-          install-r: false
-          use-public-rspm: true
+
+      - name: Cache R packages
+        uses: actions/cache@v3
+        with: 
+          path: ${{ runner.tool_cache }}/R
+          key: ${{ runner.os }}-r-${{ hashFiles('**/*.lock') }}
+          restore-keys: ${{ runner.os }}-r-
                       
       - name: Install system dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install libcurl4-openssl-dev libv8-dev
-      - name: Cache R packages
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ hashFiles('DESCRIPTION') }}
-          restore-keys: ${{ runner.os }}-r-
+           Rscript -e 'install.packages("devtools")'
+           Rscript -e 'devtools::install_deps(dep = TRUE)'
 
       - name: Install hubUtils from specific branch
         run: |
