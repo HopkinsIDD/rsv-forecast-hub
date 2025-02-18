@@ -26,9 +26,10 @@ jobs:
       - name: Cache R packages
         uses: actions/cache@v3
         with: 
-          path: ${{ runner.tool_cache }}/R
+          path: ~/.cache/R
           key: ${{ runner.os }}-r-${{ hashFiles('**/*.lock') }}
-          restore-keys: ${{ runner.os }}-r-
+          restore-keys: |
+            ${{ runner.os }}-r-
                       
       - name: Install system dependencies
         run: |
