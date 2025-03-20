@@ -40,6 +40,8 @@ jobs:
 
       - name: Install R packages
         run: |
+           Rscript -e 'install.packages("pkgdown")'
+           Rscript -e 'install.packages("textshaping")'
            Rscript -e 'install.packages("devtools")'
            Rscript -e 'devtools::install_deps(dep = TRUE)'
            Rscript -e 'install.packages("curl")'
