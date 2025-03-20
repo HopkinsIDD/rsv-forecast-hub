@@ -30,9 +30,9 @@ dates_archive <- unlist(jsonlite::read_json(file.path(dir_path, "hub-config/task
 valid_dates <- dates_archive[as.Date(dates_archive) <= Sys.Date()]
 
 if (length(valid_dates) == 0) {
-    curr_origin_date <- as.Date(min(dates_archive, na.rm = TRUE)) # temporary until starting date has passed
+  curr_origin_date <- as.Date(min(dates_archive, na.rm = TRUE)) # temporary until starting date has passed
 } else {
-    curr_origin_date <- as.Date(max(valid_dates, na.rm = TRUE))
+  curr_origin_date <- as.Date(max(valid_dates, na.rm = TRUE))
 }
 
 #curr_origin_date <- as.Date("2024-11-17")
@@ -56,50 +56,56 @@ file_paths <- list.files(output_path, pattern = "\\.parquet$|\\.csv$", full.name
 file_paths <- file_paths[grepl(curr_origin_date, file_paths)]
 print(file_paths)
 
-# read the files, and concatenate all the data frames with adding the team name in "model_id" column
-projection_data_all <- file_paths %>%
-  map_df(~{
-    # func selection according to the input file format
-    read_fun <- ifelse(grepl("\\.parquet$", .x), arrow::read_parquet, readr::read_csv)
-
-    # read data
-    data <- read_fun(.x)
-
-    # check if 'origin_date' column exists
-    if (!"origin_date" %in% names(data)) {
-      print(paste("File", .x, "does not contain 'origin_date' column"))
-    }
-
-    # append the team name in "model_id"
-    data$model_id <- basename(dirname(.x))
-
-    # return data
-    data
-  })
-head(projection_data_all)
-
-
-## ----data_prep --------------------------------------------------
-
-projection_data_all <- dplyr::mutate(projection_data_all,
-                                     target_date = as.Date(origin_date) + (horizon * 7) - 1)
-projection_data_all <- as_model_out_tbl(projection_data_all)
-#head(projection_data_all)
-
-round <- projection_data_all %>%
-  dplyr::filter(origin_date == as.Date(curr_origin_date),
-                model_id != "hub-ensemble") %>%
-  dplyr::collect()
-
-
-## ----call-data-end, include=FALSE --------------------------------------------------
-
-# Generate Ensembles
-round_ens <- hubEnsembles::simple_ensemble(round %>%
-                                             dplyr::filter(model_id != "hub-baseline",
-                                                           horizon %in% 0:4)) %>%
-  dplyr::mutate(target_end_date = origin_date + horizon*7 - 1) %>%
-  dplyr::select(-target_date)
-dir.create(file.path(dir_path, "model-output", "hub-ensemble"), showWarnings = FALSE, recursive = TRUE)
-arrow::write_parquet(round_ens, file.path(dir_path, "model-output", "hub-ensemble", paste0(curr_origin_date, "-hub-ensemble.parquet")))
-
+if (length(file_paths) > 0) {
+  
+  
+  # read the files, and concatenate all the data frames with adding the team name in "model_id" column
+  projection_data_all <- file_paths %>%
+    map_df(~{
+      # func selection according to the input file format
+      read_fun <- ifelse(grepl("\\.parquet$", .x), arrow::read_parquet, readr::read_csv)
+      
+      # read data
+      data <- read_fun(.x)
+      
+      # check if 'origin_date' column exists
+      if (!"origin_date" %in% names(data)) {
+        print(paste("File", .x, "does not contain 'origin_date' column"))
+      }
+      
+      # append the team name in "model_id"
+      data$model_id <- basename(dirname(.x))
+      
+      # return data
+      data
+    })
+  head(projection_data_all)
+  
+  
+  ## ----data_prep --------------------------------------------------
+  
+  projection_data_all <- dplyr::mutate(projection_data_all,
+                                       target_date = as.Date(origin_date) + (horizon * 7) - 1)
+  projection_data_all <- as_model_out_tbl(projection_data_all)
+  #head(projection_data_all)
+  
+  round <- projection_data_all %>%
+    dplyr::filter(origin_date == as.Date(curr_origin_date),
+                  model_id != "hub-ensemble") %>%
+    dplyr::collect()
+  
+  
+  ## ----call-data-end, include=FALSE --------------------------------------------------
+  
+  # Generate Ensembles
+  round_ens <- hubEnsembles::simple_ensemble(round %>%
+                                               dplyr::filter(model_id != "hub-baseline",
+                                                             horizon %in% 0:4)) %>%
+    dplyr::mutate(target_end_date = origin_date + horizon*7 - 1) %>%
+    dplyr::select(-target_date)
+  dir.create(file.path(dir_path, "model-output", "hub-ensemble"), showWarnings = FALSE, recursive = TRUE)
+  arrow::write_parquet(round_ens, file.path(dir_path, "model-output", "hub-ensemble", paste0(curr_origin_date, "-hub-ensemble.parquet")))
+  
+} else {
+  print("No update to Ensemble required.")
+}
