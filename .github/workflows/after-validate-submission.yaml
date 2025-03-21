@@ -8,6 +8,7 @@ on:
   pull_request_target:
     types:
       - closed
+  workflow_dispatch:
 
 jobs:
   copy-files-to-rsv-data-repo:
@@ -96,51 +97,51 @@ jobs:
           done
         if: ${{ env.retro != '0' }}
 
-      - name: Commit and push new files to root repository
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull origin main
-          if [ -n "$(git status --porcelain)" ]; then
-            git add model-output/hub-ensemble/*
-            git commit -m "Upload new files to RSV data repo by ${GITHUB_ACTOR} in #${{ github.event.pull_request.number }}"
-            git push
-            echo "Data for hub-ensemble uploaded to root repo";
-          else
-            echo "no upload for root repo";
-          fi
-        shell: bash
+      # - name: Commit and push new files to root repository
+      #   run: |
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      #     git pull origin main
+      #     if [ -n "$(git status --porcelain)" ]; then
+      #       git add model-output/hub-ensemble/*
+      #       git commit -m "Upload new files to RSV data repo by ${GITHUB_ACTOR} in #${{ github.event.pull_request.number }}"
+      #       git push
+      #       echo "Data for hub-ensemble uploaded to root repo";
+      #     else
+      #       echo "no upload for root repo";
+      #     fi
+      #   shell: bash
         
       - name: Checkout and push to another repository
         uses: actions/checkout@v3
         with:
           repository: HopkinsIDD/rsv-forecast-hub_data
           #repository: kjsato/rsv-forecast-hub_data
-          token: ${{ secrets.KJ3_PATC }}
+          # token: ${{ secrets.KJ3_PATC }}
           path: ./rsv-forecast-hub_data
           fetch-depth: 2
           ref: main
 
-      - name: Copy new files
-        run: |
-          for FILE in model-output/**/* model-metadata/*; do
-            if [ -f "$FILE" ]; then
-              mkdir -p ./rsv-forecast-hub_data/$(dirname $FILE)
-              cp $FILE ./rsv-forecast-hub_data/$FILE
-            fi
-          done
-      - name: Commit and push new files
-        run: |
-          cd ./rsv-forecast-hub_data
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull origin main
-          if [ -n "$(git status --porcelain)" ]; then
-            git add .
-            git commit -m "Upload new files to RSV data repo by ${GITHUB_ACTOR} in #${{ github.event.pull_request.number }}"
-            git push
-            echo "RSV data uploaded";
-          else
-            echo "no upload";
-          fi
-        shell: bash
+      # - name: Copy new files
+      #   run: |
+      #     for FILE in model-output/**/* model-metadata/*; do
+      #       if [ -f "$FILE" ]; then
+      #         mkdir -p ./rsv-forecast-hub_data/$(dirname $FILE)
+      #         cp $FILE ./rsv-forecast-hub_data/$FILE
+      #       fi
+      #     done
+      # - name: Commit and push new files
+      #   run: |
+      #     cd ./rsv-forecast-hub_data
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      #     git pull origin main
+      #     if [ -n "$(git status --porcelain)" ]; then
+      #       git add .
+      #       git commit -m "Upload new files to RSV data repo by ${GITHUB_ACTOR} in #${{ github.event.pull_request.number }}"
+      #       git push
+      #       echo "RSV data uploaded";
+      #     else
+      #       echo "no upload";
+      #     fi
+      #   shell: bash
