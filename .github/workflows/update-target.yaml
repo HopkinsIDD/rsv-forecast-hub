@@ -25,7 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          R -e 'install.packages(c("lubridate", "dplyr", "tidyr", "arrow","readr"))'
+          R -e 'install.packages(c("lubridate", "dplyr", "tidyr", "arrow","readr","checkmate", "purrr", "cli", "epidatr", "epiprocess", "epipredict"))'
 
       - name: Update target data
         run: Rscript target-data/get_target_data.R
