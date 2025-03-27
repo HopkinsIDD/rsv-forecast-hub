@@ -34,8 +34,7 @@ jobs:
 
       - name: Run R script
         run: |
-          cd ./scripts
-          Rscript rsv-baseline.R
+          Rscript scripts/rsv-baseline.R
 
       - name: Commit
         run: |
