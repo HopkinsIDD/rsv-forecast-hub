@@ -25,7 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          R -e 'install.packages(c("lubridate", "dplyr", "tidyr", "arrow","readr","checkmate", "purrr", "cli", "epidatr", "pak", "plotly"))'
+          R -e 'install.packages(c("lubridate", "dplyr", "tidyr", "arrow","readr","checkmate", "purrr", "cli", "epidatr", "pak", "plotly", "here"))'
           R -e 'pak::pkg_install("cmu-delphi/epiprocess@main")'
           R -e 'pak::pkg_install("cmu-delphi/epipredict@main")'
 
