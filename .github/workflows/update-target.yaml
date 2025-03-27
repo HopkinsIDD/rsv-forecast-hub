@@ -32,10 +32,6 @@ jobs:
       - name: Update target data
         run: Rscript target-data/get_target_data.R
 
-      - name: Run R script
-        run: |
-          Rscript scripts/rsv-baseline.R
-
       - name: Commit
         run: |
           git config user.name Github-Actions
