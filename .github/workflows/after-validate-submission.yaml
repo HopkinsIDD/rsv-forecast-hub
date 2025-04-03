@@ -82,6 +82,11 @@ jobs:
         run: |
           echo 'retro='$(echo '${{ steps.changed-files.outputs.added_files }} ${{ steps.changed-files.outputs.modified_files }}' | tr ' ' '\n' | grep 'model-output' | grep '.*-RETRO.*\.\(csv\|parquet\)'| grep -v '\.github/') >> $GITHUB_ENV
           echo 'conventional='$(echo '${{ steps.changed-files.outputs.added_files }} ${{ steps.changed-files.outputs.modified_files }}' | tr ' ' '\n' | grep -v '\.github/' | grep -c -v '.*-RETRO.*\.\(csv\|parquet\)') >> $GITHUB_ENV
+      - name: Git pull before producing new ensemble
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull origin main
       - name: Run R script
         run: |
           cd ./scripts
