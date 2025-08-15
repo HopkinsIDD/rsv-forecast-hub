@@ -37,4 +37,4 @@ methods: "A renewal equation method based on Bayesian estimation of Rt from past
 methods_long: "Model forecasts are obtained by using a renewal equation based on the estimated net reproduction number Rt. We use a spline interpolation to obtain daily data from weekly incidence, then apply a lowpass filter to extract the main trend. We then use MCMC Metropolis-Hastings sampling to estimate the posterior distribution of Rt based on the filtered data, considering an informed prior on Rt based on RSV literature. The estimated Rt in the last weeks of available data is used to forecast Rt in the upcoming weeks, with a drift term proportional to the current incidence.  Finally, we use the renewal equation with the posterior distribution and trend of the estimated Rt to forecast RSV hospitalization trajectories."
 ensemble_of_models: false
 ensemble_of_hub_models: false
-website_url: https://publichealth.indiana.edu/research/faculty-directory/profile.html?user=majelli
+website_url: https://publichealth.indiana.edu/about/directory/Marco-Ajelli-majelli.html
