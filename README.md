@@ -1,6 +1,6 @@
 # US RSV Forecast Hub
 
-## IMPORTANT: STARTING IN THE 2025-26 SEASON, THE RSV FORECAST HUB HAS BEEN HANDED OFF TO THE CDC'S CENTER FOR FORECASTING AND OUTBREAK ANALYSIS (CFA). PLEASE SUBMIT YOUR FORECASTS TO [CDCgov/rsv-forecast-hub](https://github.com/CDCgov/rsv-forecast-hub). Thank you to the CFA for taking over this important effort!
+## IMPORTANT: Starting in the 2025-26 season, the RSV Forecast Hub has been handed off to the CDC's Center for Forecasting and Outbreak Analytics (CFA). Please submit your forecasts to [CDCgov/rsv-forecast-hub](https://github.com/CDCgov/rsv-forecast-hub). Thank you to the CFA for taking over this important effort!
 
 
 
