@@ -1,5 +1,9 @@
 # US RSV Forecast Hub
 
+# IMPORTANT: STARTING IN THE 2025-26 SEASON, THE RSV FORECAST HUB HAS BEEN HANDED OFF TO THE CDC'S CENTER FOR FORECASTING AND OUTBREAK ANALYSIS (CFA). PLEASE SUBMIT YOUR FORECASTS TO [CDCgov/rsv-forecast-hub](https://github.com/CDCgov/rsv-forecast-hub). Thank you to the CFA for taking over this important effort!
+
+
+
 ## Rationale
 Respiratory Syncytial Virus (RSV) is the #1 cause of hospitalizations in children under 5 in the United States. Tracking RSV-associated hospitalization rates helps public health professionals understand trends in virus circulation, estimate disease burden, and respond to outbreaks. Accurate predictions of hospital admissions linked to RSV will help support appropriate public health interventions and planning during the 2024-2025 RSV season, as COVID-19, influenza, and other respiratory pathogens are circulating. 
 
